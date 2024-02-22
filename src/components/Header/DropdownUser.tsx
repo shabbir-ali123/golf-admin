@@ -8,7 +8,7 @@ const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const auth = useAuth();
-  const  { handleToken, user} = auth
+  const  { handleUser, user} = auth
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
@@ -42,7 +42,7 @@ const DropdownUser = () => {
   const handleLogOut= ()=>{
     console.log("click");
     localStorage.removeItem('token');
-    handleToken('');
+    // handleToken('');
   }
 
   return (
@@ -56,13 +56,13 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {user.nickName}
+            {user?.nickName}
           </span>
-          <span className="block text-xs"> {user.email}</span>
+          <span className="block text-xs"> {user?.email}</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
-          <img src={user.imageUrl ? user.imageUrl : UserOne} alt="User" />
+          <img src={user?.imageUrl ? user.imageUrl : UserOne} alt="User" />
         </span>
 
         <svg

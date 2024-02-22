@@ -15,14 +15,15 @@ export const AuthContext = memo(({ children }: any) => {
 
     const [isLoading, setIsLoading] = useState<Boolean>(false)
     const [user, setUser] = useState<IUser | null>(null);
-
+    const [hastoken, setToken] = useState<boolean>(false);
+    console.log(store_token);
     const handleUser = useCallback((value: any) => {
         return setUser(value);
     }, [user]);
 
     useEffect(() => {
-        debugger;
-        fetchUser()
+        fetchUser();
+
     }, []);
 
     const fetchUser = async () => {
@@ -31,7 +32,11 @@ export const AuthContext = memo(({ children }: any) => {
         setIsLoading(false)
     }
 
-    const value = { handleUser, id, user, isLoading }
+    // const handleSubmit = async (e: React.FormEvent, formData: { email: string; password: string }) => {
+    //     e.preventDefault();
+    //      loginUser(formData); 
+    //   };
+    const value = { handleUser,setToken, hastoken, id, user, isLoading }
 
     return <Context.Provider value={value}> {children}</Context.Provider>
 })

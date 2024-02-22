@@ -4,6 +4,8 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 // import { ToastConfig, toastProperties } from "../constants/toast";
 import Loader from "../../common/Loader";
+import { loginUser } from "../../api/Users";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Login: React.FC<{ updateTokenState: (tokenExists: boolean) => void }> = ({ updateTokenState }) => {
     const router = useNavigate();
@@ -13,6 +15,7 @@ const Login: React.FC<{ updateTokenState: (tokenExists: boolean) => void }> = ({
   });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const { setToken } = useAuth();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -24,26 +27,7 @@ const Login: React.FC<{ updateTokenState: (tokenExists: boolean) => void }> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    try {
-      setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      const response = await axios.post(API_ENDPOINTS.LOGIN, formData);
-
-      if (response.status === 200) {
-        localStorage.setItem("token", response.data.jwtToken);
-        localStorage.setItem("id", response.data.id);
-        updateTokenState(true);
-        router('/');
-      }
-      setError(null);
-    } catch (error) {
-      let apiError =
-        (error as any)?.response?.data?.message || "We are not able to Login";
-    } finally {
-      setLoading(false);
-    }
+    await loginUser(formData, setToken)
   };
   return (
     <section className="bg-gray-50 dark:bg-gray-900">

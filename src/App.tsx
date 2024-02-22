@@ -23,8 +23,8 @@ import { useAuth } from './contexts/AuthContext';
 
 function App() {
 
-  const { user, isLoading} = useAuth();
-  console.log({user, isLoading})
+  const { user, isLoading, hastoken} = useAuth();
+  console.log({ hastoken})
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -43,7 +43,7 @@ function App() {
   return(
      
     <>
-      {user?.token ? (<Routes>
+      {hastoken ? (<Routes>
         <Route
           index
           element={
@@ -189,7 +189,7 @@ function App() {
           }
         />
       </Routes>) :
-        <Login updateTokenState={updateTokenState} />
+        <Login updateTokenState={user?.setToken} />
       }
 
     </>
