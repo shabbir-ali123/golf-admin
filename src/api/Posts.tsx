@@ -12,7 +12,7 @@ export const fetchPosts = async (setPosts:any, getToken:any,token:any ) => {
       const response = await axios.get(endpoint, {
         headers,
         params: {
-            category: "beforeMatch"
+            category: "party"
         }
       });
 

@@ -1,18 +1,17 @@
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
-import TableThree from '../components/Tables/TableThree';
 import DefaultLayout from '../layout/DefaultLayout';
 import  {PostContext}  from '../context';
+import PostTable from '../components/Tables/PostTable';
 
 const Tables = () => {
   return (
     <PostContext>
 
     <DefaultLayout>
-      <Breadcrumb pageName="Tables" />
+      <Breadcrumb pageName="Posts" />
 
       <div className="flex flex-col gap-10">
-            <TableThree />
-        
+            <PostTable />
       </div>
     </DefaultLayout>
     </PostContext>

@@ -1,84 +1,80 @@
-import { useEffect } from 'react';
-import { postContextStore, useStore } from '../../context';
-import { Package } from '../../types/package';
-import { fetchPosts } from '../../api/Posts';
+import { teacherContextStore } from '../../contexts/TeachersContext';
+import { humanTime } from '../../hooks/humanReadableTime';
 
-const packageData: Package[] = [
-  {
-    name: 'Free package',
-    price: 0.0,
-    invoiceDate: `Jan 13,2023`,
-    status: 'Paid',
-  },
-  {
-    name: 'Standard Package',
-    price: 59.0,
-    invoiceDate: `Jan 13,2023`,
-    status: 'Paid',
-  },
-  {
-    name: 'Business Package',
-    price: 99.0,
-    invoiceDate: `Jan 13,2023`,
-    status: 'Unpaid',
-  },
-  {
-    name: 'Standard Package',
-    price: 59.0,
-    invoiceDate: `Jan 13,2023`,
-    status: 'Pending',
-  },
-];
 
-const TableThree = () => {
-  const {posts, setPosts} = postContextStore();
-
-  useEffect
+const TeacherTable = () => {
+  const { teachers } = teacherContextStore();
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <div className="max-w-full overflow-x-auto">
         <table className="w-full table-auto">
           <thead>
             <tr className="bg-gray-2 text-left dark:bg-meta-4">
-              <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                Package
+              <th className="min-w-[50px] py-4 px-4 font-medium text-black dark:text-white">
+                id
               </th>
               <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                Invoice date
+                Teacher
               </th>
               <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                Status
+                Phoone No
               </th>
               <th className="py-4 px-4 font-medium text-black dark:text-white">
-                Actions
+                Location
+              </th>
+              <th className="py-4 px-4 font-medium text-black dark:text-white">
+                Hourly Rate
+              </th>
+              <th className="py-4 px-4 font-medium text-black dark:text-white">
+                Account Created Date
+              </th>
+              <th className="py-4 px-4 font-medium text-black dark:text-white">
+                actions
               </th>
             </tr>
           </thead>
           <tbody>
-            {posts.map((packageItem:any, key:any) => (
+            {teachers.map((item: any, key: any) => (
               <tr key={key}>
-                <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                  <h5 className="font-medium text-black dark:text-white">
-                    {packageItem.text}
-                  </h5>
-                  <p className="text-sm">${packageItem.price}</p>
+                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p className="text-black dark:text-white">
+                     {item.id} 
+                    </p>                
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                  <div className='flex items-center gap-2'>
+                  <img src={item.imageUrl} className="font-medium text-black dark:text-white w-10 h-10 rounded-full" />
                   <p className="text-black dark:text-white">
-                    {packageItem.invoiceDate}
+                    {item.firstName}  {item.lastName} 
+                  </p>
+                  </div>
+                </td>
+                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                <p className="text-black dark:text-white">
+                    {item.phoneNumber}
                   </p>
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+               
                   <p
-                    className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
-                      packageItem.status === 'Paid'
+                    className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${item.status === 'Paid'
                         ? 'bg-success text-success'
-                        : packageItem.status === 'Unpaid'
-                        ? 'bg-danger text-danger'
-                        : 'bg-warning text-warning'
-                    }`}
+                        : item.status === 'Unpaid'
+                          ? 'bg-danger text-danger'
+                          : 'bg-warning text-warning'
+                      }`}
                   >
-                    {packageItem.status}
+                    {item.location}
+                  </p>
+                </td>
+                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                <p className="text-black dark:text-white">
+                ¥{item.hourlyRate}
+                  </p>
+                </td>
+                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                <p className="text-black dark:text-white">
+                {humanTime(item.createdAt)}
                   </p>
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -159,4 +155,4 @@ const TableThree = () => {
   );
 };
 
-export default TableThree;
+export default TeacherTable;

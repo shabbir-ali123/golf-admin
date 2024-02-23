@@ -1,4 +1,6 @@
 import React, {  useCallback, useEffect, useState } from 'react';
+import { fetchPosts } from './api/Posts';
+import { useAuth } from './contexts/AuthContext';
 
 //posts
 
@@ -19,11 +21,10 @@ const PostCont = React.createContext<any>({});
 export const PostContext = ({children}:any)=>{
   
     const [posts, setPosts] = useState<IPost[]>([]);
-    // const { token, getToken} = useStore();
+    const { token, getToken} = useAuth();
 
     useEffect(() => {
-        console.log("hello")
-        // fetchPosts(setPosts,getToken, token);
+        fetchPosts(setPosts,getToken, token);
     }, []);
 
     const handlePost = useCallback((value: any) => {

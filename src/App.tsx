@@ -18,6 +18,7 @@ import Buttons from './pages/UiElements/Buttons';
 import Login from './pages/Authentication/Login';
 import Posts from './pages/Posts';
 import { useAuth } from './contexts/AuthContext';
+import Teachers from './pages/Teachers';
 
 
 function App() {
@@ -56,7 +57,7 @@ function App() {
           }
         />
         <Route
-          path="/users"
+          path="/events"
           element={
             <>
               <PageTitle title="Users | Golf" />
@@ -105,7 +106,7 @@ function App() {
           element={
             <>
               <PageTitle title="Teacher | Golf" />
-              <Tables />
+              <Teachers />
             </>
           }
         />
