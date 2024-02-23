@@ -6,11 +6,15 @@ import './css/satoshi.css';
 import 'jsvectormap/dist/css/jsvectormap.css';
 import 'flatpickr/dist/flatpickr.min.css';
 import { AuthContext } from './contexts/AuthContext';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
+        <Router>
+
       <AuthContext>
         <App />
       </AuthContext>
+      </Router>
   </React.StrictMode>,
 );

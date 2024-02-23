@@ -1,4 +1,4 @@
-import { useEffect, useState, createContext, useContext } from 'react';
+import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
 import Loader from './common/Loader';
@@ -17,25 +17,18 @@ import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
 import Login from './pages/Authentication/Login';
 import Posts from './pages/Posts';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
 
 
 function App() {
 
-  const { user, isLoading, hastoken} = useAuth();
-  console.log({ hastoken})
+  const {  isLoading, hastoken} = useAuth();
+  console.log( hastoken,"sads")
   const { pathname } = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-
-  function updateTokenState(tokenExists: boolean) {
-    console.log()
-  }
-
-
 
   if(isLoading){
     return <Loader/>
@@ -166,7 +159,7 @@ function App() {
           element={
             <>
               <PageTitle title="Login | Golf" />
-              <Login updateTokenState={updateTokenState} />
+              <Login />
             </>
           }
         />
@@ -189,7 +182,7 @@ function App() {
           }
         />
       </Routes>) :
-        <Login updateTokenState={user?.setToken} />
+        <Login  />
       }
 
     </>
@@ -197,4 +190,4 @@ function App() {
     }
 
 
-export default ()=> <Router><App/></Router>;
+export default App;

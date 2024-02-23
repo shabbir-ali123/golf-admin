@@ -1,41 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { API_ENDPOINTS } from "../../api/apiConfig";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-// import { ToastConfig, toastProperties } from "../constants/toast";
-import Loader from "../../common/Loader";
-import { loginUser } from "../../api/Users";
-import { useAuth } from "../../contexts/AuthContext";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
-const Login: React.FC<{ updateTokenState: (tokenExists: boolean) => void }> = ({ updateTokenState }) => {
-    const router = useNavigate();
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  const { setToken } = useAuth();
+const Login: React.FC = () => {
+  const { handleSubmit, handleChange } = useAuth();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await loginUser(formData, setToken)
-  };
+ 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
-      {loading && (
-        <div className="flex items-center justify-center h-screen">
-          <Loader />
-        </div>
-      )}
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 animate__animated animate__fadeInLeft">
         <div className="w-full bg-white rounded-lg shadow-xl dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -44,13 +16,6 @@ const Login: React.FC<{ updateTokenState: (tokenExists: boolean) => void }> = ({
             </h1>
 
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
-              {error && (
-                <div className="text-[#F80202] text-sm mt-2">
-                  {/* Display the error message */}
-                  {error}
-                </div>
-              )}
-
               <div>
                 <label
                   htmlFor="email"
@@ -119,7 +84,7 @@ const Login: React.FC<{ updateTokenState: (tokenExists: boolean) => void }> = ({
                 Sign In
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Don’t have an account yet?{" "}
+                Don’t have an account yet?{' '}
                 <Link
                   to="/register-page"
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"

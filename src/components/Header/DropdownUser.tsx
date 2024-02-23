@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import {  useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import UserOne from '../../images/user/user-01.png';
@@ -8,7 +8,7 @@ const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const auth = useAuth();
-  const  { handleUser, user} = auth
+  const  { user, setToken} = auth
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
@@ -40,9 +40,9 @@ const DropdownUser = () => {
     return () => document.removeEventListener('keydown', keyHandler);
   });
   const handleLogOut= ()=>{
-    console.log("click");
     localStorage.removeItem('token');
-    // handleToken('');
+    localStorage.removeItem('id');
+    setToken(false);
   }
 
   return (

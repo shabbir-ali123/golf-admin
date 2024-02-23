@@ -1,32 +1,4 @@
-import React, { Children, useCallback, useEffect, useState } from 'react';
-import { fetchPosts } from './api/Posts';
-interface IUser {
-    nickName: string;
-    email: string;
-    imageUrl: string;
-  }
-const MyContext = React.createContext<any>({});
-export const StoreContext = ({children}:any)=>{
-    const token = localStorage.getItem('token');
-    const [getToken, setToken] = useState<boolean>(Boolean(token));
-    const id = localStorage.getItem('id');
-    
-
-    const handleToken = useCallback((value:boolean)=>{
-        return setToken(value);
-    },[token]);
-    const [user, setUser] = useState<IUser[]>([]);
-
-    const handleUser = useCallback((value: any) => {
-        return setUser(value);
-    }, [user]);
-    const value =  {getToken, handleToken,handleUser, token, id, user, setUser}
-
-    return <MyContext.Provider  value={value}> {children}</MyContext.Provider>
-}
-
-export const useStore = ()=> React.useContext(MyContext);
-
+import React, {  useCallback, useEffect, useState } from 'react';
 
 //posts
 
