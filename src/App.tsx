@@ -10,7 +10,6 @@ import Chart from './pages/Chart';
 import ECommerce from './pages/Dashboard/ECommerce';
 import FormElements from './pages/Form/FormElements';
 import FormLayout from './pages/Form/FormLayout';
-import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import Tables from './pages/Tables';
 import Alerts from './pages/UiElements/Alerts';
@@ -19,6 +18,7 @@ import Login from './pages/Authentication/Login';
 import Posts from './pages/Posts';
 import { useAuth } from './contexts/AuthContext';
 import Teachers from './pages/Teachers';
+import Events from './pages/Events';
 
 
 function App() {
@@ -60,8 +60,8 @@ function App() {
           path="/events"
           element={
             <>
-              <PageTitle title="Users | Golf" />
-              <Profile />
+              <PageTitle title="Events | Golf" />
+              <Events />
             </>
           }
         />

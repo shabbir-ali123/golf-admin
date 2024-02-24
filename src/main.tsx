@@ -7,14 +7,19 @@ import 'jsvectormap/dist/css/jsvectormap.css';
 import 'flatpickr/dist/flatpickr.min.css';
 import { AuthContext } from './contexts/AuthContext';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { EventsContext } from './contexts/EventContext';
+import { TeacherContext } from './contexts/TeachersContext';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-        <Router>
-
+    <Router>
       <AuthContext>
-        <App />
+        <EventsContext>
+          <TeacherContext>
+            <App />
+          </TeacherContext>
+        </EventsContext>
       </AuthContext>
-      </Router>
+    </Router>
   </React.StrictMode>,
 );

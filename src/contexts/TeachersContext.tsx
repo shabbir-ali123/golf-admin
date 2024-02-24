@@ -1,26 +1,23 @@
 import React, {  useCallback, useEffect, useState } from 'react';
-import { useAuth } from './AuthContext';
 import { fetchTeachers } from '../api/Teacher';
 
-interface ITeacher {
-    imageUrl: string;
-}
-  
+
 const TeacherCreateContext = React.createContext<any>({});
 
 export const TeacherContext = ({children}:any)=>{
   
     const [teachers, setTeachers] = useState<any[]>([]);
-    const { getToken} = useAuth();
+    const store_token: string = localStorage.getItem('token') || '';
+    const [teachersCount, setEventsCount] = useState<any[]>([]);
 
     useEffect(() => {
-        fetchTeachers(setTeachers,getToken);
+        fetchTeachers(setTeachers, setEventsCount, store_token);
     }, []);
 
     const handleTeachers = useCallback((value: any) => {
         return setTeachers(value);
     }, [teachers]);
-    const value =  { handleTeachers, teachers}
+    const value =  { handleTeachers, teachers, teachersCount}
 
     return <TeacherCreateContext.Provider  value={value}> {children}</TeacherCreateContext.Provider>
 }

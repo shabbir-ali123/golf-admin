@@ -58,7 +58,7 @@ export const AuthContext = memo(({ children }: any) => {
     setIsLoading(false);
   };
 
-  const value = { handleUser, handleChange,handleSubmit,setToken,    hastoken, id, user, isLoading };
+  const value = { handleUser, handleChange,handleSubmit,setToken, hastoken, id, user, isLoading };
 
   return <Context.Provider value={value}> {children}</Context.Provider>;
 });

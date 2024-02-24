@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import ECommerce from '../Dashboard/ECommerce';
 
 const Login: React.FC = () => {
-  const { handleSubmit, handleChange } = useAuth();
+  const { handleSubmit, handleChange, hastoken } = useAuth();
 
  
   return (
+    hastoken ? <ECommerce /> :
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 animate__animated animate__fadeInLeft">
         <div className="w-full bg-white rounded-lg shadow-xl dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">

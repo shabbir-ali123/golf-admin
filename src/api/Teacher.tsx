@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_ENDPOINTS } from "./apiConfig";
 
-export const fetchTeachers = async (setTeachers:any, token:any) => {
+export const fetchTeachers = async (setTeachers:any,setTeachersCount:any, token:any) => {
     try {
     let endpoint = API_ENDPOINTS.GETALLTEACHERSPUBLIC;
     if (token && token !== "undefined") {
@@ -18,6 +18,7 @@ export const fetchTeachers = async (setTeachers:any, token:any) => {
       });
 
       if (response.data && response.data.teachers) {
+        setTeachersCount(response.data.count);
         setTeachers(response.data.teachers);
         // if (response.data.teachers.length > 0) {
         //   setSelectedTeacher(response.data.teachers[0]);
