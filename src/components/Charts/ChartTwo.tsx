@@ -1,6 +1,7 @@
 import { ApexOptions } from 'apexcharts';
 import React, { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
+import { eventContextStore } from '../../contexts/EventContext';
 
 const options: ApexOptions = {
   colors: ['#3C50E0', '#80CAEE'],
@@ -82,7 +83,13 @@ const ChartTwo: React.FC = () => {
       },
     ],
   });
-  
+  const { events } = eventContextStore(); // Get events from the context
+
+  // Extract likes data from events
+  const likesData = events.map((event: any) => ({
+    x: event.eventName,
+    y: event.likes.length, // Assuming likes is an array of likes objects
+  }));
   const handleReset = () => {
     setState((prevState) => ({
       ...prevState,
@@ -136,7 +143,7 @@ const ChartTwo: React.FC = () => {
         <div id="chartTwo" className="-ml-5 -mb-9">
           <ReactApexChart
             options={options}
-            series={state.series}
+            series={[{ data: likesData }]} 
             type="bar"
             height={350}
           />

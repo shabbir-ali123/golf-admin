@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_ENDPOINTS } from "./apiConfig";
 
-export const fetchEvents = async (setEvents:any,setCount:any, token:any ) => {
+export const fetchEvents = async (setEvents:any,setCount:any, token:any, pageNumber:number, pageSize:any ) => {
     try {
     
       const response = await axios.get(API_ENDPOINTS.GETALLEVENT, {
@@ -9,8 +9,8 @@ export const fetchEvents = async (setEvents:any,setCount:any, token:any ) => {
             Authorization: `Bearer ${token}`,
           },   
           params: {
-            page: 1,
-            pageSize: 50000,
+            page: pageNumber,
+            pageSize: pageSize,
             eventStartDate: '',
             eventEndDate: '',
             status: '',

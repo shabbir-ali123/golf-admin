@@ -1,8 +1,8 @@
 import { eventContextStore } from '../../contexts/EventContext';
-import { humanTime } from '../../hooks/humanReadableTime';
 
 const EventTable = () => {
   const { events } = eventContextStore();
+ 
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <div className="max-w-full overflow-x-auto">
@@ -25,7 +25,7 @@ const EventTable = () => {
                 Capacity
               </th>
               <th className="py-4 px-4 font-medium text-black dark:text-white">
-                Categories
+                Event Started 
               </th>
               <th className="py-4 px-4 font-medium text-black dark:text-white">
                 Creator Name
@@ -58,6 +58,9 @@ const EventTable = () => {
                   <p className="text-black dark:text-white">{item.eventType}</p>
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                  <p className="text-black dark:text-white">{item.accountHolderName}</p>
+                </td>
+                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p
                     className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
                       item.id === 'Paid'
@@ -71,13 +74,11 @@ const EventTable = () => {
                   </p>
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                  <p className="text-black dark:text-white">¥{item.accountHolderName}</p>
-                </td>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p className="text-black dark:text-white">
-                    {item.categories}
+                   {item.eventStartDate}
                   </p>
                 </td>
+              
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p className="text-black dark:text-white">
                     {item.creator.nickName}
@@ -166,6 +167,14 @@ const EventTable = () => {
             ))}
           </tbody>
         </table>
+        {/* <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={(page: any) => setCurrentPage(page)}
+          pageSize={pageSize}
+          isPreviousDisabled={isPreviousDisabled}
+          isNextDisabled={isNextDisabled}
+        /> */}
       </div>
     </div>
   );
