@@ -22,6 +22,7 @@ export const API_ENDPOINTS = {
   JOINEDEVENTS: `${API_BASE_URL}/${API_VERSION}/join-event/`,
   GETEVENTBYID: `${API_BASE_URL}/${API_VERSION}/get-event-by-id/`,
   GETPUBLICEVENTBYID: `${API_BASE_URL}/${API_VERSION}/get-public-event-by-id/`,
+  GETALLUSERS: `${API_BASE_URL}/${API_VERSION}/get-total-users`,
  
   // teacher
   BECOMETEACHER: `${API_BASE_URL}/${API_VERSION}/become-teacher`,
@@ -53,6 +54,8 @@ export const API_ENDPOINTS = {
   GETPOSTBYID: `${API_BASE_URL}/${API_VERSION}/get-post-by-id/`, 
   ADDPOSTCOMMENT: `${API_BASE_URL}/${API_VERSION}/add-post-comment`,
   ADDPOSTLIKE: `${API_BASE_URL}/${API_VERSION}/add-post-like`,
+  GETTOTALPOSTS: `${API_BASE_URL}/${API_VERSION}/get-all-posts`,
+
   
   //location
   GETEVENTPLACE: `${API_BASE_URL}/${API_VERSION}/get-event-places`,

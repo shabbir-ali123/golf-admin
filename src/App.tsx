@@ -19,6 +19,7 @@ import Posts from './pages/Posts';
 import { useAuth } from './contexts/AuthContext';
 import Teachers from './pages/Teachers';
 import Events from './pages/Events';
+import Users from './pages/Users';
 
 
 function App() {
@@ -43,16 +44,17 @@ function App() {
           element={
             <>
               <PageTitle title=" Dashboard | Golf" />
-              <ECommerce />
+              <Users />
+
             </>
           }
         />
-        <Route
+       <Route
           path="/analytics"
           element={
             <>
-              <PageTitle title="Analytics | Golf" />
-              <Calendar />
+              <PageTitle title=" Analytics | Golf" />
+              <ECommerce />
             </>
           }
         />

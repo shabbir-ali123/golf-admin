@@ -9,6 +9,9 @@ import { AuthContext } from './contexts/AuthContext';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { EventsContext } from './contexts/EventContext';
 import { TeacherContext } from './contexts/TeachersContext';
+import { PostContext } from './contexts/PostContext';
+import { AllUsers } from './contexts/AllUsers';
+import { TotalPosts } from './contexts/TotalPosts';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -16,7 +19,13 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <AuthContext>
         <EventsContext>
           <TeacherContext>
-            <App />
+            <PostContext>
+              <AllUsers>
+              <TotalPosts>
+              <App />
+              </TotalPosts>
+              </AllUsers>
+            </PostContext>
           </TeacherContext>
         </EventsContext>
       </AuthContext>

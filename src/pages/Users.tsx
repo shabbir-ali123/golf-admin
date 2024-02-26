@@ -1,22 +1,20 @@
 import React from 'react';
-import CardDataStats from '../../components/CardDataStats';
-import ChartOne from '../../components/Charts/ChartOne';
-import ChartThree from '../../components/Charts/ChartThree';
-import ChartTwo from '../../components/Charts/ChartTwo';
-import ChatCard from '../../components/Chat/ChatCard';
-import MapOne from '../../components/Maps/MapOne';
-import TableOne from '../../components/Tables/TableOne';
-import DefaultLayout from '../../layout/DefaultLayout';
-import { eventContextStore } from '../../contexts/EventContext';
-import { teacherContextStore } from '../../contexts/TeachersContext';
-import { totalPostStore } from '../../contexts/TotalPosts';
+import DefaultLayout from '../layout/DefaultLayout';
+import CardDataStats from '../components/CardDataStats';
+import { eventContextStore } from '../contexts/EventContext';
+import { teacherContextStore } from '../contexts/TeachersContext';
+import UsersTable from '../components/Tables/UsersTable';
+import { allUsersStore } from '../contexts/allUsers';
+import { totalPostStore } from '../contexts/TotalPosts';
+
 
 const ECommerce: React.FC = () => {
   const { eventsCount } = eventContextStore();
   const { teachersCount } = teacherContextStore();
+  const { totalUsers } = allUsersStore();
   const { totalPosts } = totalPostStore();
-  // const { studentsCount } = ();
 
+  console.log(totalUsers)
   return (
     <DefaultLayout>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
@@ -73,7 +71,7 @@ const ECommerce: React.FC = () => {
         </CardDataStats>
         <CardDataStats
           title="Total Students"
-          total="2."
+          total={totalUsers?.count}
           rate="2.59%"
           levelUp
         >
@@ -96,7 +94,7 @@ const ECommerce: React.FC = () => {
             </g>
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Posts" total={totalPosts} rate="0.95%" levelDown>
+        <CardDataStats title="Total Posts" total={totalPosts?.count} rate="0.95%" levelDown>
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -122,14 +120,10 @@ const ECommerce: React.FC = () => {
       </div>
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-        <ChartOne />
-        <ChartTwo />
-        <ChartThree />
-        <MapOne />
-        <div className="col-span-12 xl:col-span-8">
-          <TableOne />
+      
+        <div className="col-span-12 xl:col-span-12">
+          <UsersTable />
         </div>
-        <ChatCard />
       </div>
     </DefaultLayout>
   );

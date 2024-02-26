@@ -44,4 +44,20 @@ export const loginUser = async (formData: any, setToken: any): Promise<boolean> 
   }
 };
 
+  export const getAllUsers = async(setTotalUsers: any, token: any) => {
+    try {
+      const response = await axios.get(`${API_ENDPOINTS.GETALLUSERS}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status == 200) {
+        setTotalUsers(response.data)
+      }
+    }
+
+    catch(error) {
+      console.log(error, 'error')
+    }
+  }
 

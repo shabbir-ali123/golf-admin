@@ -18,7 +18,9 @@ const Events = () => {
       <Breadcrumb pageName="Events" />
 
       <div className="flex flex-col gap-10">
-      <Pagination
+      
+        <EventTable />
+        <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={onPageChange}
@@ -26,8 +28,6 @@ const Events = () => {
           isPreviousDisabled={currentPage === 1}
           isNextDisabled={currentPage === totalPages}
         />
-        <EventTable />
-        
       </div>
     </DefaultLayout>
   );

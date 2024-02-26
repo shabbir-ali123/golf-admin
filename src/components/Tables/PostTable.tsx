@@ -1,4 +1,4 @@
-import { postContextStore } from '../../context';
+import { postContextStore } from "../../contexts/PostContext";
 
 
 const PostTable = () => {

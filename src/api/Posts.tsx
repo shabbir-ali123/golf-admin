@@ -21,3 +21,20 @@ export const fetchPosts = async (setPosts:any, getToken:any,token:any ) => {
       throw error; 
     }
   };
+
+  export const fetchAllPosts = async(setTotalPosts: any, token: any) => {
+    try {
+      const response = await axios.get(`${API_ENDPOINTS.GETTOTALPOSTS}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status == 200) {
+        setTotalPosts(response.data)
+      }
+    }
+
+    catch(error) {
+      console.log(error, 'error')
+    }
+  }

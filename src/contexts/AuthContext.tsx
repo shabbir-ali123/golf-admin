@@ -1,5 +1,5 @@
 import React, {  memo, useCallback, useEffect, useState } from 'react';
-import { getUser, loginUser } from '../api/Users';
+import { getAllUsers, getUser, loginUser } from '../api/Users';
 interface IUser {
   nickName: string;
   email: string;
@@ -21,7 +21,7 @@ export const AuthContext = memo(({ children }: any) => {
     email: '',
     password: '',
   });
-   
+
   useEffect(() => {
     if (hasToken) {
         fetchUser();
