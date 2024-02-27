@@ -9,7 +9,7 @@ const Tables = () => {
       <Breadcrumb pageName="Posts" />
 
       <div className="flex flex-col gap-10">
-            <PostTable />
+        <PostTable />
       </div>
     </DefaultLayout>
   );

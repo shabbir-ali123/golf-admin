@@ -11,7 +11,6 @@ import { EventsContext } from './contexts/EventContext';
 import { TeacherContext } from './contexts/TeachersContext';
 import { PostContext } from './contexts/PostContext';
 import { AllUsers } from './contexts/AllUsers';
-import { TotalPosts } from './contexts/TotalPosts';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -21,9 +20,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           <TeacherContext>
             <PostContext>
               <AllUsers>
-              <TotalPosts>
               <App />
-              </TotalPosts>
               </AllUsers>
             </PostContext>
           </TeacherContext>

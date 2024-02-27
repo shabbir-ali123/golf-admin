@@ -1,4 +1,5 @@
 import { postContextStore } from "../../contexts/PostContext";
+import { humanTime } from "../../hooks/humanReadableTime";
 
 
 const PostTable = () => {
@@ -25,7 +26,7 @@ const PostTable = () => {
                 category
               </th>
               <th className="py-4 px-4 font-medium text-black dark:text-white">
-                Reactions
+                Create At
               </th>
               <th className="py-4 px-4 font-medium text-black dark:text-white">
                 actions
@@ -40,9 +41,9 @@ const PostTable = () => {
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <div className='flex items-center gap-2'>
-                  <img src={item.posts.imageUrl} className="font-medium text-black dark:text-white w-10 h-10 rounded-full" />
+                  <img src={item.mediaFile[0]} className="font-medium text-black dark:text-white w-10 h-10 rounded-full" />
                   <p className="text-black dark:text-white">
-                    {item.posts.nickName}
+                    {item.id}
                   </p>
                   </div>
                 </td>
@@ -66,7 +67,7 @@ const PostTable = () => {
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                 <p className="text-black dark:text-white">
-                    {item.category}
+                    {item.tags}
                   </p>
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -79,18 +80,9 @@ const PostTable = () => {
                           : 'bg-warning text-warning'
                       }`}
                   >
-                    {item.PostLikes.map((item:any , index:any)=>Number(item.length))} Likes
+                    {humanTime(item.createdAt)}
                   </p>
-                  <p
-                    className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${item.status === 'Paid'
-                        ? 'bg-success text-success'
-                        : item.status === 'Unpaid'
-                          ? 'bg-danger text-danger'
-                          : 'bg-warning text-warning'
-                      }`}
-                  >
-                    {item.PostComments.map((item:any , index:any)=>Number(index))} comments
-                  </p>
+                 
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <div className="flex items-center space-x-3.5">

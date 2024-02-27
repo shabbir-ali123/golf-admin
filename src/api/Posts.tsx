@@ -22,7 +22,7 @@ export const fetchPosts = async (setPosts:any, getToken:any,token:any ) => {
     }
   };
 
-  export const fetchAllPosts = async(setTotalPosts: any, token: any) => {
+  export const fetchAllPosts = async(setPosts:any,setTotalPosts: any, token: any) => {
     try {
       const response = await axios.get(`${API_ENDPOINTS.GETTOTALPOSTS}`, {
         headers: {
@@ -30,7 +30,8 @@ export const fetchPosts = async (setPosts:any, getToken:any,token:any ) => {
         },
       });
       if (response.status == 200) {
-        setTotalPosts(response.data)
+        setTotalPosts(response.data.count);
+        setPosts(response.data.posts);
       }
     }
 

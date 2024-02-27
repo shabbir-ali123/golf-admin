@@ -62,9 +62,17 @@ const UsersTable = () => {
                 </p>
               </div>
               <div className="flex items-center justify-center p-2.5 xl:p-5">
-              <p className="text-black dark:text-white">{user.email}K</p>
+              <p className="text-black dark:text-white">{user.email}</p>
             </div>
-
+            <div className="flex items-center justify-center p-2.5 xl:p-5">
+              <p className="text-black dark:text-white">Active</p>
+            </div>
+            <div className="flex items-center justify-center p-2.5 xl:p-5">
+              <p className="text-black dark:text-white">10 days ago</p>
+            </div>
+            <div className="flex items-center justify-center p-2.5 xl:p-5">
+              <p className="text-black dark:text-white">10</p>
+            </div>
             </div>
           )
         }

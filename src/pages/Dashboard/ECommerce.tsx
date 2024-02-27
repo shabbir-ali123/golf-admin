@@ -9,12 +9,12 @@ import TableOne from '../../components/Tables/TableOne';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { eventContextStore } from '../../contexts/EventContext';
 import { teacherContextStore } from '../../contexts/TeachersContext';
-import { totalPostStore } from '../../contexts/TotalPosts';
+import { postContextStore } from '../../contexts/PostContext';
 
 const ECommerce: React.FC = () => {
   const { eventsCount } = eventContextStore();
   const { teachersCount } = teacherContextStore();
-  const { totalPosts } = totalPostStore();
+  const {postsCount} = postContextStore();
   // const { studentsCount } = ();
 
   return (
@@ -96,7 +96,7 @@ const ECommerce: React.FC = () => {
             </g>
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Posts" total={totalPosts} rate="0.95%" levelDown>
+        <CardDataStats title="Total Posts" total={postsCount} rate="0.95%" levelDown>
           <svg
             className="fill-primary dark:fill-white"
             width="22"

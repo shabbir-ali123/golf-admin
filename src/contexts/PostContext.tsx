@@ -1,37 +1,37 @@
-import React, {  useCallback, useEffect, useState } from 'react';
-import { useAuth } from './AuthContext';
-import { fetchPosts } from '../api/Posts';
+import React, { useCallback, useEffect, useState } from 'react';
+import { fetchAllPosts } from '../api/Posts';
 
 
 interface IPost {
-    id: string;
-    tags: string[];
-    text: string;
-    posts: any;
-    mediaFile: string[];
-    imageUrl: string[0];
-    PostComments: string[],
-    PostLikes: string[]
-  }
-  
+    createdAt: string;
+    id: 1;
+    mediaFile: [];
+    tags:"#fsdfdsfsdffd";
+    text:"new post";
+    updatedAt:"2024-01-29T08:33:13.000Z";
+    userId: 1;
+}
+
 const PostCont = React.createContext<any>({});
 
-export const PostContext = ({children}:any)=>{
-  
+export const PostContext = ({ children }: any) => {
+
     const [posts, setPosts] = useState<IPost[]>([]);
-    const { token, getToken} = useAuth();
+    const [postsCount, setPostsCount] = useState<string>();
+    const store_token: string = localStorage.getItem('token') || '';
 
     useEffect(() => {
-        fetchPosts(setPosts,getToken, token);
+        fetchAllPosts(setPosts, setPostsCount, store_token);
     }, []);
 
     const handlePost = useCallback((value: any) => {
         return setPosts(value);
     }, [posts]);
-    const value =  { handlePost, posts}
 
-    return <PostCont.Provider  value={value}> {children}</PostCont.Provider>
+    const value = { handlePost, posts, postsCount }
+
+    return <PostCont.Provider value={value}> {children}</PostCont.Provider>
 }
 
-export const postContextStore = ()=> React.useContext(PostCont);
+export const postContextStore = () => React.useContext(PostCont);
 

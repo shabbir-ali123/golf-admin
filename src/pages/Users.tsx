@@ -4,15 +4,15 @@ import CardDataStats from '../components/CardDataStats';
 import { eventContextStore } from '../contexts/EventContext';
 import { teacherContextStore } from '../contexts/TeachersContext';
 import UsersTable from '../components/Tables/UsersTable';
-import { allUsersStore } from '../contexts/allUsers';
-import { totalPostStore } from '../contexts/TotalPosts';
+import { allUsersStore } from '../contexts/AllUsers';
+import { postContextStore } from '../contexts/PostContext';
 
 
 const ECommerce: React.FC = () => {
   const { eventsCount } = eventContextStore();
   const { teachersCount } = teacherContextStore();
   const { totalUsers } = allUsersStore();
-  const { totalPosts } = totalPostStore();
+  const { postsCount } = postContextStore();
 
   console.log(totalUsers)
   return (
@@ -94,7 +94,7 @@ const ECommerce: React.FC = () => {
             </g>
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Posts" total={totalPosts?.count} rate="0.95%" levelDown>
+        <CardDataStats title="Total Posts" total={postsCount} rate="0.95%" levelDown>
           <svg
             className="fill-primary dark:fill-white"
             width="22"
