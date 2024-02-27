@@ -1,4 +1,4 @@
-import { allUsersStore } from '../../contexts/allUsers';
+import { allUsersStore } from '../../contexts/AllUsers';
 
 interface Users {
   imageUrl: string,
