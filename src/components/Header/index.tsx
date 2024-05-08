@@ -57,7 +57,7 @@ const Header = (props: {
           {/* <!-- Hamburger Toggle BTN --> */}
 
           <Link className="block flex-shrink-0 " to="/">
-            <h2 className='text-4xl text-[#26bbce]'>Golf</h2>
+            <h2 className='text-xl text-[#26bbce]'>Golf Admin</h2>
           </Link>
         </div>
 
