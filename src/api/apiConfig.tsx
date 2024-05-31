@@ -1,7 +1,7 @@
 // http://18.216.79.130:5000
 // http://localhost:5000
 const API_BASE_URL = "https://backend.golf-encounters.com:5000"
-const API_VERSION = "api";
+const API_VERSION = "admin";
 
 export const API_ENDPOINTS = {
   //auth
