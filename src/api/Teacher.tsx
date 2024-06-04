@@ -29,3 +29,20 @@ export const fetchTeachers = async (setTeachers:any,setTeachersCount:any, token:
     //   toast.error('Error fetching teachers');
     }
   };
+ export  const handleDeleteTeacher = async (teacher_id:any) => {
+    try {
+      const response = await axios.delete(API_ENDPOINTS.DELETETEACHER + teacher_id, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if (response.status === 200) {
+        alert("Teacher deleted successfully");
+        localStorage.removeItem("teacher_id");
+       
+      }
+    } catch (error) {
+      console.error("Error deleting teacher:", error);
+      alert("Error deleting teacher. Please try again.");
+    }
+  };

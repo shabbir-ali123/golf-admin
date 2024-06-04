@@ -2,7 +2,7 @@
 // http://localhost:5000
 const API_BASE_URL = "https://backend.golf-encounters.com:5000"
 const API_VERSION = "admin";
-
+export const frontEnd:string = "https://backend.golf-encounters.com";
 export const API_ENDPOINTS = {
   //auth
   REGISTER: `${API_BASE_URL}/${API_VERSION}/register`,
@@ -38,7 +38,8 @@ export const API_ENDPOINTS = {
   UPDATEAPPOINTMENTSTATUS: `${API_BASE_URL}/${API_VERSION}/update-appointment-status`,  
   GETFAVORITETEACHER: `${API_BASE_URL}/${API_VERSION}/get-favorite-teachers`,
   ACCEPTAPPOINTMENT: `${API_BASE_URL}/${API_VERSION}/accept-appointment`, 
-  
+  DELETETEACHER: `${API_BASE_URL}/${API_VERSION}/delete-teacher/`,
+
   // teams
   GETALLTEAMS: `${API_BASE_URL}/${API_VERSION}/get-all-teams`, 
   GETTEAMSBYEVENT: `${API_BASE_URL}/${API_VERSION}/get-teams-by-event/`, 
