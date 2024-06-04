@@ -26,7 +26,7 @@ export const fetchTeachers = async (setTeachers:any,setTeachersCount:any, token:
       }
     } catch (error) {
       console.error('Error fetching teachers:', error);
-    //   toast.error('Error fetching teachers');
+    
     }
   };
  export  const handleDeleteTeacher = async (teacher_id:any) => {
