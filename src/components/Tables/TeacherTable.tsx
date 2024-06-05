@@ -4,17 +4,14 @@ import { humanTime } from '../../hooks/humanReadableTime';
 import { handleDeleteTeacher } from '../../api/Teacher';
 import { frontEnd } from '../../api/apiConfig';
 
-
 const TeacherTable = () => {
   const { teachers } = teacherContextStore();
-  
-  
-  const handleDelete = (teacherId:any)=>{
-    handleDeleteTeacher(teacherId);
-  }
-  
 
-return (
+  const handleDelete = (teacherId: any) => {
+    handleDeleteTeacher(teacherId);
+  };
+
+  return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <div className="max-w-full overflow-x-auto">
         <table className="w-full table-auto">
@@ -47,51 +44,55 @@ return (
             {teachers.map((item: any, key: any) => (
               <tr key={key}>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">
-                     {item.id} 
-                    </p>                
+                  <p className="text-black dark:text-white">{item.id}</p>
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                  <div className='flex items-center gap-2'>
-                  <img src={item.imageUrl} className="font-medium text-black dark:text-white w-10 h-10 rounded-full" />
-                  <p className="text-black dark:text-white">
-                    {item.firstName}  {item.lastName} 
-                  </p>
+                  <div className="flex items-center gap-2">
+                    <img
+                      src={item.imageUrl}
+                      className="font-medium text-black dark:text-white w-10 h-10 rounded-full"
+                    />
+                    <p className="text-black dark:text-white">
+                      {item.firstName} {item.lastName}
+                    </p>
                   </div>
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                <p className="text-black dark:text-white">
+                  <p className="text-black dark:text-white">
                     {item.phoneNumber}
                   </p>
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-               
                   <p
-                    className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${item.status === 'Paid'
+                    className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
+                      item.status === 'Paid'
                         ? 'bg-success text-success'
                         : item.status === 'Unpaid'
-                          ? 'bg-danger text-danger'
-                          : 'bg-warning text-warning'
-                      }`}
+                        ? 'bg-danger text-danger'
+                        : 'bg-warning text-warning'
+                    }`}
                   >
                     {item.location}
                   </p>
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                <p className="text-black dark:text-white">
-                ¥{item.hourlyRate}
+                  <p className="text-black dark:text-white">
+                    ¥{item.hourlyRate}
                   </p>
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                <p className="text-black dark:text-white">
-                {humanTime(item.createdAt)}
+                  <p className="text-black dark:text-white">
+                    {humanTime(item.createdAt)}
                   </p>
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <div className="flex items-center space-x-3.5">
-                    <button className="hover:text-primary" onClick={()=>{
-                      // window.location.href(frontEnd)
-                    }}>
+                    <button
+                      className="hover:text-primary"
+                      onClick={() => {
+                        window.open(frontEnd + "teacher-details/" + item.id, '_blank');
+                      }}
+                    >
                       <svg
                         className="fill-current"
                         width="18"
@@ -110,8 +111,12 @@ return (
                         />
                       </svg>
                     </button>
-                    <button onClick={()=>{handleDelete(item.id)}} className="hover:text-primary">
-                      
+                    <button
+                      onClick={() => {
+                        handleDelete(item.id);
+                      }}
+                      className="hover:text-primary"
+                    >
                       <svg
                         className="fill-current"
                         width="18"
@@ -135,13 +140,9 @@ return (
                         <path
                           d="M6.72245 9.67504C6.38495 9.70317 6.1037 10.0125 6.13182 10.35L6.3287 12.825C6.35683 13.1625 6.63808 13.4157 6.94745 13.4157C6.97558 13.4157 6.97558 13.4157 7.0037 13.4157C7.3412 13.3875 7.62245 13.0782 7.59433 12.7407L7.39745 10.2657C7.39745 9.90004 7.08808 9.64692 6.72245 9.67504Z"
                           fill="white"
-                          
                         />
-                        
                       </svg>
-                      
                     </button>
-                   
                   </div>
                 </td>
               </tr>

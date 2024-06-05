@@ -2,7 +2,7 @@
 // http://localhost:5000
 const API_BASE_URL = "https://backend.golf-encounters.com:5000"
 const API_VERSION = "admin";
-export const frontEnd:string = "https://backend.golf-encounters.com";
+export const frontEnd:string = "https://golf-encounters.com/";
 export const API_ENDPOINTS = {
   //auth
   REGISTER: `${API_BASE_URL}/${API_VERSION}/register`,
@@ -11,7 +11,7 @@ export const API_ENDPOINTS = {
   CREATEEVENT: `${API_BASE_URL}/${API_VERSION}/createEvent`,
   GET_USER: `${API_BASE_URL}/${API_VERSION}/user/`,
   UPDATEUSER: `${API_BASE_URL}/${API_VERSION}/update-profile`,
-  GETALLEVENT: `${API_BASE_URL}/${API_VERSION}/getAllEvents`,
+  GETALLEVENT: `${API_BASE_URL}/${API_VERSION}/get-all-events`,
   PUBLICEVENTS: `${API_BASE_URL}/${API_VERSION}/get-public-events`,
   ADDCOMMENT: `${API_BASE_URL}/${API_VERSION}/add-comment`,
   ADDLIKE: `${API_BASE_URL}/${API_VERSION}/add-like`,
@@ -22,7 +22,7 @@ export const API_ENDPOINTS = {
   JOINEDEVENTS: `${API_BASE_URL}/${API_VERSION}/join-event/`,
   GETEVENTBYID: `${API_BASE_URL}/${API_VERSION}/get-event-by-id/`,
   GETPUBLICEVENTBYID: `${API_BASE_URL}/${API_VERSION}/get-public-event-by-id/`,
-  GETALLUSERS: `${API_BASE_URL}/${API_VERSION}/get-total-users`,
+  GETALLUSERS: `${API_BASE_URL}/${API_VERSION}/total-users`,
  
   // teacher
   BECOMETEACHER: `${API_BASE_URL}/${API_VERSION}/become-teacher`,
@@ -50,7 +50,7 @@ export const API_ENDPOINTS = {
 
   //posts
   CREATEPOSTS: `${API_BASE_URL}/${API_VERSION}/create-post`, 
-  GETPOSTS: `${API_BASE_URL}/${API_VERSION}/get-posts`, 
+  GETPOSTS: `${API_BASE_URL}/${API_VERSION}/get-all-posts`, 
   GETPUBLICPOSTS: `${API_BASE_URL}/${API_VERSION}/get-public-posts`, 
   GETPOSTBYID: `${API_BASE_URL}/${API_VERSION}/get-post-by-id/`, 
   ADDPOSTCOMMENT: `${API_BASE_URL}/${API_VERSION}/add-post-comment`,

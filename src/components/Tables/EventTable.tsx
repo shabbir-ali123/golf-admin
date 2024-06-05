@@ -1,3 +1,4 @@
+import { frontEnd } from '../../api/apiConfig';
 import { eventContextStore } from '../../contexts/EventContext';
 
 const EventTable = () => {
@@ -96,7 +97,9 @@ const EventTable = () => {
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <div className="flex items-center space-x-3.5">
-                    <button className="hover:text-primary">
+                    <button className="hover:text-primary" onClick={() => {
+                        window.open(frontEnd + "score-board/" + item?.id, '_blank');
+                      }}>
                       <svg
                         className="fill-current"
                         width="18"
