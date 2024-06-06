@@ -29,7 +29,7 @@ const PostTable = () => {
                 Create At
               </th>
               <th className="py-4 px-4 font-medium text-black dark:text-white">
-                actions
+                actionss
               </th>
             </tr>
           </thead>
