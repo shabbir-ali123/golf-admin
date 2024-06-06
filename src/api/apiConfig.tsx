@@ -7,6 +7,7 @@ export const API_ENDPOINTS = {
   //auth
   REGISTER: `${API_BASE_URL}/${API_VERSION}/register`,
   LOGIN: `${API_BASE_URL}/${API_VERSION}/login`,
+  
   //event
   CREATEEVENT: `${API_BASE_URL}/${API_VERSION}/createEvent`,
   GET_USER: `${API_BASE_URL}/${API_VERSION}/user/`,
@@ -22,7 +23,8 @@ export const API_ENDPOINTS = {
   JOINEDEVENTS: `${API_BASE_URL}/${API_VERSION}/join-event/`,
   GETEVENTBYID: `${API_BASE_URL}/${API_VERSION}/get-event-by-id/`,
   GETPUBLICEVENTBYID: `${API_BASE_URL}/${API_VERSION}/get-public-event-by-id/`,
-  GETALLUSERS: `${API_BASE_URL}/${API_VERSION}/total-users`,
+  DELETE_EVENT: `${API_BASE_URL}/${API_VERSION}/delete-event-by-id/`,
+
  
   // teacher
   BECOMETEACHER: `${API_BASE_URL}/${API_VERSION}/become-teacher`,
@@ -44,6 +46,8 @@ export const API_ENDPOINTS = {
   GETALLTEAMS: `${API_BASE_URL}/${API_VERSION}/get-all-teams`, 
   GETTEAMSBYEVENT: `${API_BASE_URL}/${API_VERSION}/get-teams-by-event/`, 
   UPDATETEAMMEMBER: `${API_BASE_URL}/${API_VERSION}/update-team-member`, 
+  GETALLUSERS: `${API_BASE_URL}/${API_VERSION}/total-users`,
+
   
   // student
   FAVORITETEACHER: `${API_BASE_URL}/${API_VERSION}/favorite-teacher`,
