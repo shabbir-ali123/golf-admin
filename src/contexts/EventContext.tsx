@@ -12,10 +12,11 @@ export const EventsContext = ({children}:any)=>{
     const [eventsCount, setEventsCount] = useState<any[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [pageSize, setPageSize] = useState<number>(10);
+    const [loading, isLoading] = useState<boolean>(true);
 
     useEffect(() => {
         fetchEvents(setEvents,setEventsCount, store_token, currentPage, pageSize);
-    }, [currentPage]);
+    }, [currentPage, loading]);
 
     const handleTeachers = useCallback((value: any) => {
         return setEvents(value);
@@ -28,7 +29,7 @@ export const EventsContext = ({children}:any)=>{
         setPageSize(pageSize);
     };
 
-    const value =  { handleTeachers,handlePageChange,handlePageSize, events, eventsCount}
+    const value =  { handleTeachers,handlePageChange,handlePageSize,isLoading, loading, events, eventsCount}
 
     return <EventCreateContext.Provider  value={value}> {children}</EventCreateContext.Provider>
 }
