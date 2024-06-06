@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { fetchAllPosts, fetchSinglePosts } from '../api/Posts';
+import { deletePost, fetchAllPosts, fetchSinglePosts } from '../api/Posts';
 
 
 interface IPost {
@@ -21,15 +21,20 @@ export const PostContext = ({ children }: any) => {
     const store_token: string = localStorage.getItem('token') || '';
     const [singlePost, setSinglePost] = useState<any>();
     const [postId, setPostId] = useState<any>();
+    const [deletepostId, setDeletePostId] = useState<any>();
 
     useEffect(() => {
         if (postId) {
             fetchSinglePosts(handleSinglePost, postId);
         }
+       
     }, [ setSinglePost, postId]);
     useEffect(() => {
         fetchAllPosts(setPosts, setPostsCount, store_token);
-    }, []);
+        if(deletepostId){
+            deletePost(deletepostId, setPosts)
+        }
+    }, [deletepostId]);
 
     const handlePost = useCallback((value: any) => {
         return setPosts(value);
@@ -45,8 +50,11 @@ export const PostContext = ({ children }: any) => {
         
     const handleSinglePost = useCallback((value: any) => {
         setSinglePost(value)
-    }, [singlePost])
-    const value = { handlePost,handlePostId,singlePost, posts, postsCount }
+    }, [singlePost]);
+    const handleDeletePost = useCallback((value: any) => {
+        setDeletePostId(value)
+    }, [deletepostId]);
+    const value = { handlePost,handlePostId,handleDeletePost,singlePost, posts, postsCount }
 
     return <PostCont.Provider value={value}> {children}</PostCont.Provider>
 }

@@ -4,7 +4,7 @@ import { humanTime } from "../../hooks/humanReadableTime";
 import { frontEnd } from '../../api/apiConfig';
 
 const PostTable = () => {
-  const { posts } = postContextStore();
+  const { handleDeletePost, posts } = postContextStore();
   const navigate = useNavigate();
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
@@ -109,7 +109,9 @@ const PostTable = () => {
                         />
                       </svg>
                     </button>
-                    <button className="hover:text-primary"  >
+                    <button className="hover:text-primary"  onClick={()=>{
+                      handleDeletePost(item.id)
+                    }} >
                       <svg
                         className="fill-current"
                         width="18"

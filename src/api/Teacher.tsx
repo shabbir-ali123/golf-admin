@@ -35,6 +35,9 @@ export const fetchTeachers = async (setTeachers:any,setTeachersCount:any, token:
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
+        // params:{
+        //   userId: teacher_id
+        // }
       });
       if (response.status === 200) {
         alert("Teacher deleted successfully");
