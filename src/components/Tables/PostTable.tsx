@@ -37,13 +37,13 @@ const PostTable = () => {
             {posts.map((item: any, key: any) => (
               <tr key={key}>
                 <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                  <img src={item.mediaFile[0]} className="font-medium text-black dark:text-white w-20 h-20" />
+                  <img src={item.mediaFile[0]} className="font-medium text-black dark:text-white w-20 h-20 rounded-md" />
                 </td>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                  <div className='flex items-center gap-2'>
-                  <img src={item.mediaFile[0]} className="font-medium text-black dark:text-white w-10 h-10 rounded-full" />
-                  <p className="text-black dark:text-white">
-                    {item.id}
+                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark text-start my-2">
+                  <div className=''>
+                  <img src={item.posts.imageUrl} className="font-medium text-black dark:text-white w-10 h-10 rounded-full" />
+                  <p className="text-black dark:text-white my-2">
+                    {item.posts.nickName}
                   </p>
                   </div>
                 </td>
