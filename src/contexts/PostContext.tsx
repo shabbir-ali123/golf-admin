@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { fetchAllPosts } from '../api/Posts';
+import { fetchAllPosts, fetchSinglePosts } from '../api/Posts';
 
 
 interface IPost {
@@ -19,7 +19,14 @@ export const PostContext = ({ children }: any) => {
     const [posts, setPosts] = useState<IPost[]>([]);
     const [postsCount, setPostsCount] = useState<string>();
     const store_token: string = localStorage.getItem('token') || '';
+    const [singlePost, setSinglePost] = useState<any>();
+    const [postId, setPostId] = useState<any>();
 
+    useEffect(() => {
+        if (postId) {
+            fetchSinglePosts(handleSinglePost, postId);
+        }
+    }, [ setSinglePost, postId]);
     useEffect(() => {
         fetchAllPosts(setPosts, setPostsCount, store_token);
     }, []);
@@ -27,11 +34,26 @@ export const PostContext = ({ children }: any) => {
     const handlePost = useCallback((value: any) => {
         return setPosts(value);
     }, [posts]);
+    const handlePostId = useCallback((value: any) => {
 
-    const value = { handlePost, posts, postsCount }
+        if(!store_token){
+            router("/login-page");
+        }
+        setPostId(value)
+        
+    }, [postId])
+        
+    const handleSinglePost = useCallback((value: any) => {
+        setSinglePost(value)
+    }, [singlePost])
+    const value = { handlePost,handlePostId,singlePost, posts, postsCount }
 
     return <PostCont.Provider value={value}> {children}</PostCont.Provider>
 }
 
 export const postContextStore = () => React.useContext(PostCont);
+
+function router(arg0: string) {
+    throw new Error('Function not implemented.');
+}
 

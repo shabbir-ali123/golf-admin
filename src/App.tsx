@@ -19,6 +19,7 @@ import { useAuth } from './contexts/AuthContext';
 import Teachers from './pages/Teachers';
 import Events from './pages/Events';
 import Users from './pages/Users';
+import UpdatePost from './pages/UpdatePost';
 
 
 function App() {
@@ -66,6 +67,7 @@ function App() {
             </>
           }
         />
+
         <Route
           path="/inbox"
           element={
@@ -99,6 +101,15 @@ function App() {
             <>
               <PageTitle title="Posts | Golf" />
               <Posts />
+            </>
+          }
+        />
+         <Route
+          path="/update-post/:id"
+          element={
+            <>
+              <PageTitle title="Posts | Golf" />
+              <UpdatePost />
             </>
           }
         />

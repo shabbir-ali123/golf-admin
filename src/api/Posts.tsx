@@ -1,6 +1,8 @@
 import axios from "axios";
 import { API_ENDPOINTS } from "./apiConfig";
-
+export let headers:any = {
+  "ngrok-skip-browser-warning": "69420"
+};
 
 
   export const fetchAllPosts = async(setPosts:any,setTotalPosts: any, token: any) => {
@@ -22,3 +24,21 @@ import { API_ENDPOINTS } from "./apiConfig";
       console.log(error, 'error')
     }
   }
+  export const fetchSinglePosts = async (setSinglePosts: any, id: any) => {
+    try {
+      const token = localStorage.getItem("token");
+      let endpoint = API_ENDPOINTS.GETPOSTBYID + id;
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+        endpoint = API_ENDPOINTS.GETPOSTBYID + id;
+      }
+      const response = await axios.get(endpoint, {
+        headers,
+      });
+      console.log(response);
+      setSinglePosts(response.data.post);
+    } catch (error) {
+      throw error;
+    }
+  };
+  

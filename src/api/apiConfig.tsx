@@ -60,7 +60,8 @@ export const API_ENDPOINTS = {
   ADDPOSTCOMMENT: `${API_BASE_URL}/${API_VERSION}/add-post-comment`,
   ADDPOSTLIKE: `${API_BASE_URL}/${API_VERSION}/add-post-like`,
   GETTOTALPOSTS: `${API_BASE_URL}/${API_VERSION}/get-all-posts`,
-
+  UPDATEPOST: `${API_BASE_URL}/${API_VERSION}/update-post`,
+  UPDATEPOSTMEDIA: `${API_BASE_URL}/${API_VERSION}/update-post-media`,
   
   //location
   GETEVENTPLACE: `${API_BASE_URL}/${API_VERSION}/get-event-places`,
