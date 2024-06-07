@@ -6,6 +6,7 @@ import ReactQuill from "react-quill";
 import { postContextStore } from "../contexts/PostContext";
 import { API_ENDPOINTS } from "../api/apiConfig";
 import { useTranslation } from "react-i18next";
+import "react-quill/dist/quill.snow.css";
 
 interface UpdatePostType {
   text: string;
@@ -93,14 +94,14 @@ const UpdatePost: React.FC<any> = () => {
     const userToken = localStorage.getItem("token");
   
     try {
-      // Create an object to hold the form data
+     
       const dataToSend = {
         userId: formData.userId,
         text: formData.text,
         category: formData.category,
         tags: formData.tags,
         mediaFile: formData.mediaFiles,
-        postId: postId || undefined, // Optional chaining for postId
+        postId: postId || undefined, 
       };
   
       // Convert the object to JSON
@@ -230,13 +231,15 @@ const UpdatePost: React.FC<any> = () => {
             </Link>
           </div>
           <div >
-            <textarea
-             className="border-2 border-solid rounded-md"
+          <div style={{ height: "300px", overflow: "hidden" }}>
+            <ReactQuill
+              theme="snow"
               value={formData.text}
               onChange={handleInputTextChange}
               placeholder={t("WRITE_TEXT")}
-              style={{ height: "220px", width:"100%" }}
+              style={{ height: "220px" }}
             />
+          </div>
           </div>
 
           <div>
