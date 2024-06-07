@@ -21,7 +21,7 @@ const PostTable = () => {
               <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                 Content
               </th>
-              <th className="py-4 px-4 font-medium text-black dark:text-white">
+              <th className="py-4 px-4 font-medium text-bl ack dark:text-white">
                 Tags
               </th>
               <th className="py-4 px-4 font-medium text-black dark:text-white">

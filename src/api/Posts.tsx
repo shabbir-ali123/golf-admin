@@ -45,16 +45,14 @@ export let headers:any = {
 export const deletePost = async (postId: any,setMessage:any) => {
   try {
       const token = localStorage.getItem("token");
-      let endpoint = API_ENDPOINTS.DELETEPOST ;
+      let endpoint = API_ENDPOINTS.DELETEPOST +postId ;
       const headers: any = {
         "ngrok-skip-browser-warning": "69420"
       };
       if (token && token !== "undefined") {
           headers["Authorization"] = `Bearer ${token}`;
       }
-      const response = await axios.delete(endpoint, { headers , params:{
-        id: postId
-      }});
+      const response = await axios.delete(endpoint, { headers });
 
       setMessage(response.data.message);
   } catch (error) {

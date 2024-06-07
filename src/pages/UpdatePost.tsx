@@ -86,43 +86,48 @@ const UpdatePost: React.FC<any> = () => {
   }
   const handlePost = async (event: React.FormEvent) => {
     event.preventDefault();
-
-    console.log(formData.mediaFiles.length, "asdasd");
+  
     if (!formData.userId || formData.mediaFiles.length === 0) {
       return;
     }
     const userToken = localStorage.getItem("token");
-
+  
     try {
-      const formDataToSend = new FormData();
-      formDataToSend.append("userId", formData.userId);
-      formDataToSend.append("text", formData.text);
-      formDataToSend.append("category", formData.category);
-      formDataToSend.append("tags", formData.tags);
-      if (postId) {
-        formDataToSend.append("postId", postId);
-      }
-      formData.mediaFiles.forEach((file, index) => {
-        formDataToSend.append("mediaFiles", file);
-      });
-
+      // Create an object to hold the form data
+      const dataToSend = {
+        userId: formData.userId,
+        text: formData.text,
+        category: formData.category,
+        tags: formData.tags,
+        mediaFile: formData.mediaFiles,
+        postId: postId || undefined, // Optional chaining for postId
+      };
+  
+      // Convert the object to JSON
+      const jsonString = JSON.stringify(dataToSend);
+  
+      // Send the JSON string in the request body
       const response = await axios.put(
-        API_ENDPOINTS.UPDATEPOST ,
-        formDataToSend,
+        API_ENDPOINTS.UPDATEPOST,
+        jsonString,
         {
           headers: {
             Authorization: `Bearer ${userToken}`,
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
-          params:{
-            id:postId
+          params: {
+            id: postId
           }
         }
       );
+  
       toast.success("Post has been Updated");
       router("/post-page");
-    } catch (error: unknown) {}
+    } catch (error: unknown) {
+      console.error("Error updating post:", error);
+    }
   };
+  
 
   const handleInputTextChange = (content: any) => {
     setFormData((prevFormData: any) => ({
