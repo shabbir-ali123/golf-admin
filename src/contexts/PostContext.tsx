@@ -22,6 +22,7 @@ export const PostContext = ({ children }: any) => {
     const [singlePost, setSinglePost] = useState<any>();
     const [postId, setPostId] = useState<any>();
     const [deletepostId, setDeletePostId] = useState<any>();
+    const [updated, setUpdated] = useState<any>();
 
     useEffect(() => {
         if (postId) {
@@ -34,7 +35,7 @@ export const PostContext = ({ children }: any) => {
         if(deletepostId){
             deletePost(deletepostId, setPosts)
         }
-    }, [deletepostId]);
+    }, [deletepostId, updated ]);
 
     const handlePost = useCallback((value: any) => {
         return setPosts(value);
@@ -54,7 +55,7 @@ export const PostContext = ({ children }: any) => {
     const handleDeletePost = useCallback((value: any) => {
         setDeletePostId(value)
     }, [deletepostId]);
-    const value = { handlePost,handlePostId,handleDeletePost,singlePost, posts, postsCount }
+    const value = { handlePost,handlePostId,handleDeletePost,setUpdated, singlePost, posts, postsCount }
 
     return <PostCont.Provider value={value}> {children}</PostCont.Provider>
 }
