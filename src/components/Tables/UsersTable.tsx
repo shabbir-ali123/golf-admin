@@ -5,11 +5,19 @@ interface Users {
   id: any,
   imageUrl: string,
   nickName: string
-  email: string
+  email: string,
+  createdAt:any
 }
 const UsersTable = () => {
   const { totalUsers } = allUsersStore();
-  
+  const formatDate = (dateString: string): string => {
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    return new Date(dateString).toLocaleString(undefined, options);
+  };
   console.log(totalUsers?.users.map((item: Users) => item))
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
@@ -36,7 +44,7 @@ const UsersTable = () => {
           </div>
           <div className="hidden p-2.5 text-center sm:block xl:p-5">
             <h5 className="text-sm font-medium uppercase xsm:text-base">
-              LAST SIGNIN
+              Member Since
             </h5>
           </div>
           <div className="hidden p-2.5 text-center sm:block xl:p-5">
@@ -46,7 +54,7 @@ const UsersTable = () => {
           </div>
           <div className="hidden p-2.5 text-center sm:block xl:p-5">
             <h5 className="text-sm font-medium uppercase xsm:text-base">
-             Actions
+              Actions
             </h5>
           </div>
         </div>
@@ -75,7 +83,7 @@ const UsersTable = () => {
               <p className="text-black dark:text-white">Active</p>
             </div>
             <div className="flex items-center justify-center p-2.5 xl:p-5">
-              <p className="text-black dark:text-white">10 days ago</p>
+              <p className="text-black dark:text-white"> {formatDate(user.createdAt)}</p>
             </div>
             <div className="flex items-center justify-center p-2.5 xl:p-5">
               <p className="text-black dark:text-white">10</p>

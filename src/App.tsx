@@ -20,7 +20,7 @@ import Teachers from './pages/Teachers';
 import Events from './pages/Events';
 import Users from './pages/Users';
 import UpdatePost from './pages/UpdatePost';
-
+import UpdateTeacherLevel from './components/UpdateTeacher';
 
 function App() {
 
@@ -176,6 +176,15 @@ function App() {
             </>
           }
         />
+         <Route
+          path="/UpdateTeacherLevel"
+          element={
+            <>
+              <PageTitle title="UpdateTeacher | Golf" />
+              <UpdateTeacherLevel />
+            </>
+          }
+        />
         <Route
           path="/auth/signin"
           element={
@@ -185,6 +194,7 @@ function App() {
             </>
           }
         />
+        
         <Route
           path="/auth/signup"
           element={

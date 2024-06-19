@@ -3,10 +3,11 @@ import { teacherContextStore } from '../../contexts/TeachersContext';
 import { humanTime } from '../../hooks/humanReadableTime';
 import { handleDeleteTeacher } from '../../api/Teacher';
 import { frontEnd } from '../../api/apiConfig';
+import { Link, useNavigate } from "react-router-dom";
 
 const TeacherTable = () => {
   const { teachers } = teacherContextStore();
-
+  const navigate = useNavigate();
   const handleDelete = (teacherId: any) => {
     handleDeleteTeacher(teacherId);
   };
@@ -64,13 +65,12 @@ const TeacherTable = () => {
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p
-                    className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${
-                      item.status === 'Paid'
+                    className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${item.status === 'Paid'
                         ? 'bg-success text-success'
                         : item.status === 'Unpaid'
-                        ? 'bg-danger text-danger'
-                        : 'bg-warning text-warning'
-                    }`}
+                          ? 'bg-danger text-danger'
+                          : 'bg-warning text-warning'
+                      }`}
                   >
                     {item.location}
                   </p>
@@ -87,6 +87,7 @@ const TeacherTable = () => {
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:bord er-strokedark">
                   <div className="flex items-center space-x-3.5">
+
                     <button
                       className="hover:text-primary"
                       onClick={() => {
@@ -110,6 +111,20 @@ const TeacherTable = () => {
                           fill=""
                         />
                       </svg>
+                    </button>
+                    <Link to="/UpdateTeacherLevel">
+                    <button >Hello</button>
+                    </Link>
+                    
+                    <button className="hover:text-primary" onClick={() => {
+                        window.open(frontEnd + "teacher-page/" + item.id, '_blank');
+                      }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 20h9" />
+                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19.5 3 21l1.5-4L16.5 3.5z" />
+                      </svg>
+
+
                     </button>
                     <button
                       onClick={() => {
