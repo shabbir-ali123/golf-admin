@@ -49,3 +49,18 @@ export const fetchTeachers = async (setTeachers:any,setTeachersCount:any, token:
       alert("Error deleting teacher. Please try again.");
     }
   };
+  export const updateTeacher=async (payload:any)=>{
+ 
+    try {
+      const response = await axios.put(API_ENDPOINTS.UPDATEUSER, payload, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+       
+      });
+      if (response.status == 200) {
+        
+      }
+    } catch (error) {
+    }
+  }

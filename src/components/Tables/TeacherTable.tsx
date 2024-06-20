@@ -112,9 +112,9 @@ const TeacherTable = () => {
                         />
                       </svg>
                     </button>
-                    <Link to="/UpdateTeacherLevel">
+                    {/* <Link to="/UpdateTeacherLevel">
                     <button >Hello</button>
-                    </Link>
+                    </Link> */}
                     
                     <button className="hover:text-primary" onClick={() => {
                         window.open(frontEnd + "teacher-page/" + item.id, '_blank');
