@@ -66,5 +66,11 @@ export const API_ENDPOINTS = {
   DELETEPOST: `${API_BASE_URL}/${API_VERSION}/delete-post/`,
   //location
   GETEVENTPLACE: `${API_BASE_URL}/${API_VERSION}/get-event-places`,
-  GETEVENTPLACES: `${API_BASE_URL}/${API_VERSION}/get-public-event-places`
+  GETEVENTPLACES: `${API_BASE_URL}/${API_VERSION}/get-public-event-places`,
+  //categories admin
+  POSTCATEGORY: `${API_BASE_URL}/${API_VERSION}/add-category`,
+  GETCATEGORY: `${API_BASE_URL}/${API_VERSION}/get-admin-categories`,
+  GETALLCATEGORIES: `${API_BASE_URL}/${API_VERSION}/get-all-categories`,
+  PUTCATEGORY: `${API_BASE_URL}/${API_VERSION}/assign-categories-to-user/`,
+  DELETECATEGORY: `${API_BASE_URL}/${API_VERSION}/unassign-categories-from-user/:id`,
 };

@@ -1,16 +1,28 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { teacherContextStore } from '../../contexts/TeachersContext';
 import { humanTime } from '../../hooks/humanReadableTime';
 import { handleDeleteTeacher } from '../../api/Teacher';
 import { frontEnd } from '../../api/apiConfig';
 import { Link, useNavigate } from "react-router-dom";
+import AssignCategory from '../AssignCategory';
 
 const TeacherTable = () => {
   const { teachers } = teacherContextStore();
   const navigate = useNavigate();
+  const [selectedUserId, setSelectedUserId] = useState("");
+  const handleButtonClick = (userId:any) => {
+    setSelectedUserId(userId);
+    setIsModalOpen(true);
+  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const handleDelete = (teacherId: any) => {
     handleDeleteTeacher(teacherId);
   };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedUserId("");
+  };
+
 
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
@@ -112,9 +124,16 @@ const TeacherTable = () => {
                         />
                       </svg>
                     </button>
-                    {/* <Link to="/UpdateTeacherLevel">
-                    <button >Hello</button>
-                    </Link> */}
+                    <button onClick={() => handleButtonClick(item.id)}>
+                    
+                      Assign Label {}
+                    </button>
+                    {
+                      isModalOpen && <AssignCategory isOpen={isModalOpen} onClose={handleCloseModal} userId={selectedUserId} />
+                    
+                    }
+                       
+                  
                     
                     <button className="hover:text-primary" onClick={() => {
                         window.open(frontEnd + "teacher-page/" + item.id, '_blank');

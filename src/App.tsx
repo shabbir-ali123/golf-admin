@@ -20,23 +20,25 @@ import Teachers from './pages/Teachers';
 import Events from './pages/Events';
 import Users from './pages/Users';
 import UpdatePost from './pages/UpdatePost';
-import UpdateTeacherLevel from './components/UpdateTeacher';
+
+
+import { CategoryProvider } from './contexts/CategoryContext';
 
 function App() {
 
-  const {  isLoading, hastoken} = useAuth();
-  console.log( hastoken,"sads")
+  const { isLoading, hastoken } = useAuth();
+  console.log(hastoken, "sads")
   const { pathname } = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  if(isLoading){
-    return <Loader/>
+  if (isLoading) {
+    return <Loader />
   }
-  return(
-     
+  return (
+
     <>
       {hastoken ? (<Routes>
         <Route
@@ -49,7 +51,7 @@ function App() {
             </>
           }
         />
-       <Route
+        <Route
           path="/analytics"
           element={
             <>
@@ -104,7 +106,7 @@ function App() {
             </>
           }
         />
-         <Route
+        <Route
           path="/update-post/:id"
           element={
             <>
@@ -176,15 +178,7 @@ function App() {
             </>
           }
         />
-         <Route
-          path="/UpdateTeacherLevel"
-          element={
-            <>
-              <PageTitle title="UpdateTeacher | Golf" />
-              <UpdateTeacherLevel />
-            </>
-          }
-        />
+       
         <Route
           path="/auth/signin"
           element={
@@ -194,7 +188,7 @@ function App() {
             </>
           }
         />
-        
+
         <Route
           path="/auth/signup"
           element={
@@ -205,12 +199,12 @@ function App() {
           }
         />
       </Routes>) :
-        <Login  />
+        <Login />
       }
 
     </>
-  )  
-    }
+  )
+}
 
 
 export default App;
