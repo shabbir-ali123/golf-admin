@@ -29,14 +29,16 @@ const AddCategory: React.FC<AddCategoryProp> = ({  onClose }) => {
   return (
     <div className="fixed relative inset-0 flex items-center justify-center z-50">
        <button 
-          className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
+          className="absolute top-2 right-2 text-black hover:text-black "
           onClick={
           ()=>{
             onClose(false)
           }}
         >
-          Close
-          &times;
+        <span className='w-10 h-10 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium   w-full sm:w-auto  text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 py-2 px-3 text-white rounded-full'>
+        &times;
+        </span>
+          
         </button>
       <div className=" rounded-md w-[600px] px-4 py-10 rounded-md">
         <form onSubmit={handleSubmit}>

@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
-import { getCategories, getCategory, postCategory, putCategories } from '../api/category';
+import { getCategories, getCategory, postCategory, putCategories,deleteCategories } from '../api/category';
 
 const CategoryContext = React.createContext<any>({});
 

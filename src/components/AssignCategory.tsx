@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { updateTeacher } from '../api/Teacher';
+import React, { useState, useEffect, useRef } from 'react';
 import { useCategory } from '../contexts/CategoryContext';
-import { putCategories } from '../api/category';
+import { putCategories, deleteCategories } from '../api/category';
+import "../css/style.css";
 
 interface AssignCategoryProp {
   userId: string;
@@ -11,65 +11,103 @@ interface AssignCategoryProp {
 
 const AssignCategory: React.FC<AssignCategoryProp> = ({ userId, isOpen, onClose }) => {
   const { handleCategoryFormData, categories } = useCategory();
-  
+
   const [selectedNames, setSelectedNames] = useState<string[]>([]);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
 
-  const handleCheckboxChange = (e: any) => {
+  const handleCheckboxChange = async (e: any) => {
     const { value, checked } = e.target;
-    setSelectedNames(prev =>
-      checked ? [...prev, value] : prev.filter(name => name !== value)
-    );
+    if (checked) {
+      setSelectedNames(prev => [...prev, value]);
+    } else {
+      setSelectedNames(prev => prev.filter(name => name !== value));
+      await deleteCategories({ categoryIds: [value] }, userId, setLoading);
+    }
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    putCategories({ categoryIds: selectedNames }, userId);
-    onClose(); // Close the modal after submission
+    await putCategories({ categoryIds: selectedNames }, userId);
+    onClose();
   };
+
   useEffect(() => {
-    // Pre-select checkboxes if categories array has userDetails with ID matching userId
-    const userCategories = categories.filter((category: any) => category.userDetails?.id === userId);
-    const userCategoryIds = userCategories.map((category: any) => String(category.id)); // Convert each ID to string
-    console.log(userCategoryIds);
+    const userCategories = categories.filter((category: any) =>
+      category.users.some((user: any) => user.id === userId)
+    );
+    const userCategoryIds = userCategories.map((category: any) => String(category.id));
     setSelectedNames(userCategoryIds);
-  }, []);
+  }, [categories, userId]);
+
+  useEffect(() => {
+    if (dropdownOpen) {
+      const dropdownHeight = modalRef.current?.querySelector('.dropdown-content')?.clientHeight || 0;
+      modalRef.current!.style.height = `${200 + dropdownHeight}px`;
+    } else {
+      modalRef.current!.style.height = '300px';
+    }
+  }, [dropdownOpen]);
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[9999]">
-      <div className="bg-white shadow-lg rounded-md w-100 p-4 relative">
-        <button 
-          className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
+    <div className="fixed inset-0 bg-black bg-opacity-10 flex justify-center items-center z-[9999]">
+      <div ref={modalRef} className="modal-content bg-white shadow-lg rounded-md w-[600px] px-4 relative" >
+        <button
+          className="absolute top-10 right-2 text-black hover:text-black"
           onClick={onClose}
         >
-          &times;
+          <span className='w-10 h-10 bg-blue-700 hover:bg-blue-800 px-[13px] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 py-2 px-3 text-white rounded-full'>
+            &times;
+          </span>
         </button>
-        <form onSubmit={handleSubmit}>
-          <h2 className="text-black font-bold">You can Update Teacher Level/category Only</h2>
-          <div>
-            {categories.map((item: any, index: any) => (
-              <div key={index} className="flex items-center mb-2">
-                <input
-                  type="checkbox"
-                  id={`checkbox-${item.id}`}
-                  value={item.id}
-                  checked={selectedNames.includes(item.id.toString())}
-                  onChange={handleCheckboxChange}
-                  className="mr-2 "
-                />
-                <label htmlFor={`checkbox-${item.id}`} className="text-black">
-                  {item.categoryName}
-                </label>
-              </div>
-            ))}
-          </div>
-          <label>
-            Add new Label
-          </label>
-          <div className="flex justify-center">
-            <button className="bg-green-600 text-white rounded-md mt-2 p-2" type="submit">Update</button>
-          </div>
-        </form>
+        <div className="rounded-md mt-20">
+          <form onSubmit={handleSubmit}>
+            <h2 className="text-black font-bold py-2">You can Assign Labels to this user</h2>
+            <div className="relative inline-block text-left w-full">
+              <button
+                type="button"
+                className="inline-flex justify-between w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+              >
+                Select Categories
+                <svg className="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </button>
+
+              {dropdownOpen && (
+                <div className="dropdown-content origin-top-right absolute mt-2 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                  <div
+                    className="py-1 max-h-40 overflow-y-auto custom-scrollbar"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="options-menu"
+                  >
+                    {categories.map((item: any) => (
+                      <label key={item.id} className="flex items-center px-4 py-2 text-sm text-black">
+                        <input
+                          type="checkbox"
+                          value={item.id}
+                          checked={selectedNames.includes(item.id.toString())}
+                          onChange={handleCheckboxChange}
+                          className="mr-2 h-4 w-4 text-black border-gray-300 rounded"
+                        />
+                        {item.categoryName}
+                      </label>
+                    ))}
+                  </div>
+                  <div className="flex justify-center my-6">
+                    <button className="bg-blue-700 text-white rounded-md p-2" type="submit">Assign Label</button>
+                  </div>
+                </div>
+              )}
+
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

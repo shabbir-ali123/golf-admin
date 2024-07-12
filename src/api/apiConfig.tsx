@@ -1,5 +1,6 @@
 // http://18.216.79.130:5000
 // http://localhost:5000
+// https://backend.golf-encounters.com:5000
 const API_BASE_URL = "https://backend.golf-encounters.com:5000"
 const API_VERSION = "admin";
 export const frontEnd:string = "https://golf-encounters.com/";
@@ -72,5 +73,5 @@ export const API_ENDPOINTS = {
   GETCATEGORY: `${API_BASE_URL}/${API_VERSION}/get-admin-categories`,
   GETALLCATEGORIES: `${API_BASE_URL}/${API_VERSION}/get-all-categories`,
   PUTCATEGORY: `${API_BASE_URL}/${API_VERSION}/assign-categories-to-user/`,
-  DELETECATEGORY: `${API_BASE_URL}/${API_VERSION}/unassign-categories-from-user/:id`,
+  DELETECATEGORY: `${API_BASE_URL}/${API_VERSION}/unassign-categories-from-user/`,
 };

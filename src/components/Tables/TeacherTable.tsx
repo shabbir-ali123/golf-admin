@@ -5,12 +5,13 @@ import { handleDeleteTeacher } from '../../api/Teacher';
 import { frontEnd } from '../../api/apiConfig';
 import { Link, useNavigate } from "react-router-dom";
 import AssignCategory from '../AssignCategory';
+import ReactTooltip from 'react-tooltip';
 
 const TeacherTable = () => {
   const { teachers } = teacherContextStore();
   const navigate = useNavigate();
   const [selectedUserId, setSelectedUserId] = useState("");
-  const handleButtonClick = (userId:any) => {
+  const handleButtonClick = (userId: any) => {
     setSelectedUserId(userId);
     setIsModalOpen(true);
   };
@@ -78,10 +79,10 @@ const TeacherTable = () => {
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <p
                     className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${item.status === 'Paid'
-                        ? 'bg-success text-success'
-                        : item.status === 'Unpaid'
-                          ? 'bg-danger text-danger'
-                          : 'bg-warning text-warning'
+                      ? 'bg-success text-success'
+                      : item.status === 'Unpaid'
+                        ? 'bg-danger text-danger'
+                        : 'bg-warning text-warning'
                       }`}
                   >
                     {item.location}
@@ -101,7 +102,7 @@ const TeacherTable = () => {
                   <div className="flex items-center space-x-3.5">
 
                     <button
-                      className="hover:text-primary"
+                      className="hover:text-primary relative group"
                       onClick={() => {
                         window.open(frontEnd + "teacher-details/" + item.id, '_blank');
                       }}
@@ -123,33 +124,31 @@ const TeacherTable = () => {
                           fill=""
                         />
                       </svg>
+                      <span className="absolute left-1/2 transform -translate-x-1/2 bottom-full xl:w-[100px] mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-black text-white text-xs rounded py-1 px-2 pointer-events-none">
+                        View Details
+                      </span>
                     </button>
-                    <button onClick={() => handleButtonClick(item.id)}>
-                    
-                      Assign Label {}
-                    </button>
-                    {
-                      isModalOpen && <AssignCategory isOpen={isModalOpen} onClose={handleCloseModal} userId={selectedUserId} />
-                    
-                    }
-                       
-                  
-                    
-                    <button className="hover:text-primary" onClick={() => {
-                        window.open(frontEnd + "teacher-page/" + item.id, '_blank');
-                      }}>
+
+
+
+
+                    <button className="hover:text-primary relative group" onClick={() => {
+                      window.open(frontEnd + "teacher-page/" + item.id, '_blank');
+                    }}>
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 20h9" />
                         <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19.5 3 21l1.5-4L16.5 3.5z" />
                       </svg>
-
+                      <span className="absolute left-1/2 transform -translate-x-1/2 bottom-full xl:w-[100px] mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-black text-white text-xs rounded py-1 px-2 pointer-events-none">
+                        Edit Details
+                      </span>
 
                     </button>
                     <button
                       onClick={() => {
                         handleDelete(item.id);
                       }}
-                      className="hover:text-primary"
+                      className="hover:text-primary relative group"
                     >
                       <svg
                         className="fill-current"
@@ -176,7 +175,31 @@ const TeacherTable = () => {
                           fill="white"
                         />
                       </svg>
+                      <span className="absolute left-1/2 transform -translate-x-1/2 bottom-full xl:w-[100px] mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-black text-white text-xs rounded py-1 px-2 pointer-events-none">
+                       Delete Teacher
+                      </span>
                     </button>
+                    <button className='hover:text-primary relative group' onClick={() => handleButtonClick(item.id)} 
+                       >
+
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        className="bi bi-plus"
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="M8 8V1.5a.5.5 0 0 1 1 0V8h6.5a.5.5 0 0 1 0 1H9v6.5a.5.5 0 0 1-1 0V9H1.5a.5.5 0 0 1 0-1H8z" />
+                      </svg>
+                      <span className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 xl:w-[100px] opacity-0 group-hover:opacity-100 transition-opacity bg-black text-white text-xs rounded py-1 px-2 pointer-events-none">
+                      Assign Label
+                      </span>
+                    </button>
+                    {
+                      isModalOpen && <AssignCategory isOpen={isModalOpen} onClose={handleCloseModal} userId={selectedUserId} />
+
+                    }
                   </div>
                 </td>
               </tr>
