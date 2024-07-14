@@ -48,21 +48,25 @@ export const getCategories = async (setCategories:any,setLoading:any) => {
         setLoading(false)
     }
   };
-export const putCategories = async (formdata:any,userId:any) => {
+  let randomNum = Math.random();
+export const putCategories = async (formdata:any,userId:any, setLoading:any) => {
     try {
     
       const response = await axios.put(API_ENDPOINTS.PUTCATEGORY + userId, formdata, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },   
-         
+  
       });
+      setLoading(randomNum);
+
     } catch (error) {
       throw error; 
     }
   };
 export const deleteCategories = async (formdata:any,userId:any, setLoading:any) => {
     try {
+
     
       const response = await axios.put(API_ENDPOINTS.DELETECATEGORY + userId, formdata, {
         headers: {
@@ -70,10 +74,8 @@ export const deleteCategories = async (formdata:any,userId:any, setLoading:any) 
           },   
          
       });
-      setLoading(response.data);
+      setLoading(randomNum);
     } catch (error) {
       throw error; 
-    }finally{
-        setLoading(false)
     }
   };

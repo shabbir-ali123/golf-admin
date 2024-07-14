@@ -16,7 +16,7 @@ export const CategoryProvider = ({children}: any) => {
         if(formdata){
             postCategory(formdata, setLoading)
         }
-    }, [formdata]);
+    }, [formdata, loading]);
 
     const handleCategory = useCallback((value: any) => {
         setCategory(value);
