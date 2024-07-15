@@ -137,7 +137,7 @@ function App() {
           path="/settings"
           element={
             <>
-              <PageTitle title="Settings | Golf" />
+              <PageTitle title="Edit Profile | Golf" />
               <Settings />
             </>
           }

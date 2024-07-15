@@ -13,10 +13,8 @@ export const CategoryProvider = ({children}: any) => {
     useEffect(() => {
         getCategory(handleCategory, handleLoading);
         getCategories(handleCategories, handleLoading);
-        if(formdata){
-            postCategory(formdata, setLoading)
-        }
-    }, [formdata, loading]);
+  
+    }, [loading]);
 
     const handleCategory = useCallback((value: any) => {
         setCategory(value);

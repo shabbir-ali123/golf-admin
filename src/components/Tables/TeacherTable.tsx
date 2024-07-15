@@ -132,7 +132,7 @@ const TeacherTable = () => {
 
 
 
-                    <button className="hover:text-primary relative group" onClick={() => {
+                    {/* <button className="hover:text-primary relative group" onClick={() => {
                       window.open(frontEnd + "teacher-page/" + item.id, '_blank');
                     }}>
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -143,7 +143,7 @@ const TeacherTable = () => {
                         Edit Details
                       </span>
 
-                    </button>
+                    </button> */}
                     <button
                       onClick={() => {
                         handleDelete(item.id);

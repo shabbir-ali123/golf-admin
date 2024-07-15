@@ -1,17 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { frontEnd } from '../../api/apiConfig';
 import { allUsersStore } from '../../contexts/AllUsers';
-import AddCategory from '../AddCategory'
+import { useCategory } from '../../contexts/CategoryContext';
+import AddCategory from '../AddCategory';
+import AssignCategory from '../AssignCategory';
+
 interface Users {
-  id: any,
-  imageUrl: string,
-  nickName: string
-  email: string,
-  createdAt: any
+  id: any;
+  imageUrl: string;
+  nickName: string;
+  email: string;
+  createdAt: any;
 }
+
 const UsersTable = () => {
   const { totalUsers } = allUsersStore();
+  const { getCategories, categories, loading } = useCategory();
+  const [isModalOpens, setIsModalOpens] = useState(false);
+  const [isModalsOpen, setIsModalsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState("");
+
   const formatDate = (dateString: string): string => {
     const options: Intl.DateTimeFormatOptions = {
       year: "numeric",
@@ -20,17 +29,46 @@ const UsersTable = () => {
     };
     return new Date(dateString).toLocaleString(undefined, options);
   };
-  const handleModel = ((value:any)=>{
-      setIsModalOpen(value)
-  })
-  console.log(totalUsers?.users.map((item: Users) => item))
+
+  const handleModel = (value: any) => {
+    setIsModalOpens(value);
+  };
+
+  const handleLabelModel = (value: any) => {
+    setIsModalsOpen(value);
+    if (value) {
+      getCategories();
+    }
+  };
+
+  const handleButtonClick = (userId: any) => {
+    setSelectedUserId(userId);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedUserId("");
+  };
+
+  const handleCloseModals = () => {
+    setIsModalsOpen(false);
+    setSelectedUserId("");
+  };
+
+
+
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <div className='flex justify-between items-center'>
         <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
           All Users
         </h4>
-        <button onClick={() => handleModel(true)} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Labels</button>
+        <div className='flex gap-4'>
+          <button onClick={() => handleLabelModel(true)} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">See All Labels</button>
+          <button onClick={() => handleModel(true)} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Labels</button>
+        </div>
+
 
       </div>
 
@@ -68,15 +106,48 @@ const UsersTable = () => {
             </h5>
           </div>
         </div>
-        {isModalOpen && (
+        {isModalsOpen && (
+          <div className="fixed inset-0 flex items-center justify-center z-50">
+            <div className="fixed inset-0 bg-black opacity-50"></div>
+            <div className="bg-white p-6 rounded shadow-lg z-10 w-[600px]">
+              <div className='flex justify-end py-4'>
+                <button onClick={handleCloseModals} className='text-[red]'><span className="w-10 h-10 bg-blue-700 hover:bg-blue-800 px-[13px] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium w-full sm:w-auto text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 py-2 px-3 text-white rounded-full">
+                  &times;
+                </span></button>
+              </div>
+
+              {/* Display loading spinner or categories */}
+              {loading ? (
+                <p>Loading...</p>
+              ) : (
+                <div className='max-h-80 overflow-y-auto custom-scrollbar'>
+                  <ul className='flex flex-wrap gap-6'>
+                    {categories.map((category: any) => (
+                      <li className='bg-black text-white rounded-md p-2' key={category.id}>{category.categoryName}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              <div className='mt-4'>
+                <button onClick={() => handleModel(true)} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Label</button>
+              </div>
+            </div>
+
+          </div>
+        )}
+        {isModalOpens && (
           <div className="fixed inset-0 flex items-center justify-center z-50">
             <div className="fixed inset-0 bg-black opacity-50"></div>
             <div className="bg-white p-6 rounded shadow-lg z-10">
-              <AddCategory onClose={handleModel}/>
+              <AddCategory onClose={handleModel} />
             </div>
           </div>
         )}
         {totalUsers?.users.map((user: Users, index: number) => {
+          const userCategories = categories.filter((category: any) =>
+            category.users.some((u: any) => u.id === user.id),
+          );
+          console.log(categories, "userCategories")
           return (
             <div
               className={`grid grid-cols-3 sm:grid-cols-6 ${index === totalUsers.length - 1
@@ -97,7 +168,23 @@ const UsersTable = () => {
                 <p className="text-black dark:text-white">{user.email}</p>
               </div>
               <div className="flex items-center justify-center p-2.5 xl:p-5">
-                <p className="text-black dark:text-white">Active</p>
+                {/* <p className="text-black dark:text-white">Active</p> */}
+
+                {userCategories.length > 0 ? (
+                  <div className="flex flex-wrap justify-center items-center gap-2">
+                    {userCategories.map((category: any) => (
+                      <div className="p-2 bg-white text-black dark:bg-gray-800 rounded-md shadow-md m-1" key={category.id}>
+                        <p className="">
+                          {category.categoryName}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-black dark:text-white">Not Assigned</p>
+                )}
+
+
               </div>
               <div className="flex items-center justify-center p-2.5 xl:p-5">
                 <p className="text-black dark:text-white"> {formatDate(user.createdAt)}</p>
@@ -108,7 +195,7 @@ const UsersTable = () => {
               <div className="flex items-center justify-center p-2.5 xl:p-5">
                 <div className="flex items-center space-x-3.5">
                   <button
-                    className="hover:text-primary"
+                    className="hover:text-primary relative group"
                     onClick={() => {
                       window.open(frontEnd + "user-page/" + user?.id, '_blank');
                     }}
@@ -130,6 +217,9 @@ const UsersTable = () => {
                         fill=""
                       />
                     </svg>
+                    <span className="absolute left-1/2 transform -translate-x-1/2 bottom-full xl:w-[100px] mb-2 opacity-0 group-hover:opacity-100 transition-opacity bg-black text-white text-xs rounded py-1 px-2 pointer-events-none">
+                      View Details
+                    </span>
                   </button>
                   <button
                     // onClick={() => {
@@ -163,6 +253,27 @@ const UsersTable = () => {
                       />
                     </svg>
                   </button>
+                  <button className='hover:text-primary relative group' onClick={() => handleButtonClick(user.id)}
+                  >
+
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-plus"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M8 8V1.5a.5.5 0 0 1 1 0V8h6.5a.5.5 0 0 1 0 1H9v6.5a.5.5 0 0 1-1 0V9H1.5a.5.5 0 0 1 0-1H8z" />
+                    </svg>
+                    <span className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 xl:w-[100px] opacity-0 group-hover:opacity-100 transition-opacity bg-black text-white text-xs rounded py-1 px-2 pointer-events-none">
+                      Assign Label
+                    </span>
+                  </button>
+                  {
+                    isModalOpen && <AssignCategory isOpen={isModalOpen} onClose={handleCloseModal} userId={selectedUserId} />
+
+                  }
                 </div>
               </div>
             </div>
