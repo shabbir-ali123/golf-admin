@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useCategory } from '../contexts/CategoryContext';
-import { putCategories, deleteCategories } from '../api/category';
+import { putCategories, unassignCategories } from '../api/category';
 import '../css/style.css';
 import Loader from '../common/Loader';
 
@@ -30,7 +30,7 @@ const AssignCategory: React.FC<AssignCategoryProp> = ({
       putCategories({ categoryIds: [value] }, userId, handleLoading);
     } else {
       setSelectedNames((prev) => prev.filter((name) => name !== value));
-      await deleteCategories({ categoryIds: [value] }, userId, handleLoading);
+      await unassignCategories({ categoryIds: [value] }, userId, handleLoading);
     }
   };
 

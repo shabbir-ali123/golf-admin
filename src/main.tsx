@@ -12,6 +12,7 @@ import { TeacherContext } from './contexts/TeachersContext';
 import { PostContext } from './contexts/PostContext';
 import { AllUsers } from './contexts/AllUsers';
 import { CategoryProvider } from './contexts/CategoryContext';
+import { SubscriptionProvider } from './contexts/SubscriptionContext';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -21,12 +22,12 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           <TeacherContext>
             <PostContext>
               <CategoryProvider>
-                <AllUsers>
-                  <App />
-                </AllUsers>
+                <SubscriptionProvider>
+                  <AllUsers>
+                    <App />
+                  </AllUsers>
+                </SubscriptionProvider>
               </CategoryProvider>
-
-
             </PostContext>
           </TeacherContext>
         </EventsContext>

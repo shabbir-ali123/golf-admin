@@ -6,6 +6,10 @@ import { teacherContextStore } from '../contexts/TeachersContext';
 import UsersTable from '../components/Tables/UsersTable';
 import { allUsersStore } from '../contexts/AllUsers';
 import { postContextStore } from '../contexts/PostContext';
+import { useSubscription } from '../contexts/SubscriptionContext';
+import AddCategory from '../components/AddCategory';
+import FeeModel from '../components/EventFeeModel';
+import TeacherFeeModel from '../components/TeacherFeeModel';
 
 
 const ECommerce: React.FC = () => {
@@ -13,12 +17,23 @@ const ECommerce: React.FC = () => {
   const { teachersCount } = teacherContextStore();
   const { totalUsers } = allUsersStore();
   const { postsCount } = postContextStore();
+  const {eventFee,teacherFee, feeModel, handleModel,handleTeacherModel,teacherFeeModel} = useSubscription();
 
-  console.log(totalUsers)
+
+
+console.log(feeModel, "asdasd");
+
   return (
     <DefaultLayout>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        <CardDataStats title="Total Events" total={eventsCount} rate="">
+      {
+      feeModel && <FeeModel onClose={handleModel}  formData={eventFee}/>
+    }
+     {
+      teacherFeeModel && <TeacherFeeModel onClose={handleTeacherModel} formData={teacherFee}/>
+    }
+        <CardDataStats updateFee={true} updateModel={handleModel} totalFee={eventFee} title="Total Events" feeTitle="Events Creation Fee" total={eventsCount} rate="">
+          
           <svg
             className="fill-primary dark:fill-white"
             xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +52,7 @@ const ECommerce: React.FC = () => {
             </g>
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Teachers" total={teachersCount} rate="">
+        <CardDataStats updateFee={true} updateModel={handleTeacherModel} totalFee={teacherFee} title="Total Teachers" feeTitle="Account Creation Fee" total={teachersCount} rate="">
           <svg
             className="fill-primary dark:fill-white"
             xmlns="http://www.w3.org/2000/svg"
@@ -122,9 +137,10 @@ const ECommerce: React.FC = () => {
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
       
         <div className="col-span-12 xl:col-span-12">
-          <UsersTable />
+          <UsersTable  />
         </div>
       </div>
+   
     </DefaultLayout>
   );
 };

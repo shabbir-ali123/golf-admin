@@ -64,11 +64,11 @@ export const putCategories = async (formdata:any,userId:any, setLoading:any) => 
       throw error; 
     }
   };
-export const deleteCategories = async (formdata:any,userId:any, setLoading:any) => {
+export const unassignCategories = async (formdata:any,userId:any, setLoading:any) => {
     try {
 
     
-      const response = await axios.put(API_ENDPOINTS.DELETECATEGORY + userId, formdata, {
+      const response = await axios.put(API_ENDPOINTS.UNASSIGNCATEGORY + userId, formdata, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },   
@@ -77,5 +77,37 @@ export const deleteCategories = async (formdata:any,userId:any, setLoading:any) 
       setLoading(randomNum);
     } catch (error) {
       throw error; 
+    }
+  };
+  export const deleteCategory = async (categoryId: string, setLoading: (loading: boolean) => void) => {
+    setLoading(true);
+    try {
+      const response = await axios.delete(`${API_ENDPOINTS.DELETECATEGORY}/${categoryId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      console.log('Category deleted successfully:', response.data);
+    } catch (error) {
+      console.error('Error deleting category:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  export const updateCategory = async (categoryId:string, formdata:any, setLoading:any) => {
+   
+    try {
+      const response = await axios.put(`${API_ENDPOINTS.UPDATECATEGORY}/${categoryId}`, {"categoryName":formdata}, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      toast.success('Category updated successfully!');
+      setLoading(response.data);
+    } catch (error) {
+      toast.error('Error updating category');
+      setLoading(false);
+      throw error;
     }
   };

@@ -68,10 +68,24 @@ export const API_ENDPOINTS = {
   //location
   GETEVENTPLACE: `${API_BASE_URL}/${API_VERSION}/get-event-places`,
   GETEVENTPLACES: `${API_BASE_URL}/${API_VERSION}/get-public-event-places`,
+
+
   //categories admin
   POSTCATEGORY: `${API_BASE_URL}/${API_VERSION}/add-category`,
   GETCATEGORY: `${API_BASE_URL}/${API_VERSION}/get-admin-categories`,
   GETALLCATEGORIES: `${API_BASE_URL}/${API_VERSION}/get-all-categories`,
   PUTCATEGORY: `${API_BASE_URL}/${API_VERSION}/assign-categories-to-user/`,
-  DELETECATEGORY: `${API_BASE_URL}/${API_VERSION}/unassign-categories-from-user/`,
+  UNASSIGNCATEGORY: `${API_BASE_URL}/${API_VERSION}/unassign-categories-from-user/`,
+  DELETECATEGORY: `${API_BASE_URL}/${API_VERSION}/delete-category`,
+  UPDATECATEGORY: `${API_BASE_URL}/${API_VERSION}/update-category`,
+
+  // event add payment price
+  UPDATEEVENTPAYMENT: `${API_BASE_URL}/${API_VERSION}/update-event-payment`,
+  GETEVENTPAYMENT: `${API_BASE_URL}/${API_VERSION}/get-event-payment`,
+  SETUPEVENTPAYMENT: `${API_BASE_URL}/${API_VERSION}/set-up-event-payment`,
+
+  // TEACHER ADD PAYEMNT
+  SETUPTEACHERPAYMENT: `${API_BASE_URL}/${API_VERSION}/set-up-teacher-payment`,
+  UPDATETEACHERPAYMENT: `${API_BASE_URL}/${API_VERSION}/update-teacher-payment`,
+  GETTEACHERPAYMENT: `${API_BASE_URL}/${API_VERSION}/get-teacher-payment`,
 };

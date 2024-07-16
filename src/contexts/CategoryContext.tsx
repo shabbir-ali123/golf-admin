@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
-import { getCategories, getCategory, postCategory, putCategories,deleteCategories } from '../api/category';
+import { getCategories, getCategory, postCategory, putCategories,unassignCategories, deleteCategory,updateCategory  } from '../api/category';
 
 const CategoryContext = React.createContext<any>({});
 
@@ -34,7 +34,18 @@ export const CategoryProvider = ({children}: any) => {
     const hanldeUserId = useCallback((value: any) => {
         setUserId(value);
     }, []);
-
+    const handleDeleteCategory = useCallback(async (categoryId: string) => {
+        setLoading(true);
+        try {
+          await deleteCategory(categoryId, setLoading);
+         
+          getCategories(handleCategories, handleLoading);
+        } catch (error) {
+          console.error('Error deleting category:', error);
+          setLoading(false);
+        }
+      }, [getCategories, handleCategories, handleLoading]);
+      
     const value = {
         category,
         categories,
@@ -46,7 +57,8 @@ export const CategoryProvider = ({children}: any) => {
         handleCategories,
         handleLoading,
         handleCategoryFormData,
-        hanldeUserId
+        hanldeUserId,
+        handleDeleteCategory 
     };
 
     return <CategoryContext.Provider value={value}>{children}</CategoryContext.Provider>;
